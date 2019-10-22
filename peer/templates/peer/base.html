@@ -41,6 +41,7 @@
 
 
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+	
 	  <a class="navbar-brand" href="{% url 'peer-home' %}">Peer Review System</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
@@ -58,10 +59,12 @@
 	      </li>    
 	    </ul>
 	  </div>
-	  <ul class="navbar-nav navbar-right col-md-1">
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-        
-      </ul>  
+	  {<ul class="navbar-nav navbar-right col-md-1">
+        <li class="nav-item">
+		
+			<a class="nav-link" href="{% url 'login' %}"> Login</a></li>
+			 
+	  	</ul> 
 	</nav>
 <br>
 
