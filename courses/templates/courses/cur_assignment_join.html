@@ -111,18 +111,53 @@
         </div>
         <div class="row-content row">
             <div class="offset-md-2 col-md-4">
+                    
+             
+                <!-- <form method="post">
+                  {% csrf_token %}
+                  <div style="display: flex;flex-direction: row;">
+                    <input
+                    style="margin-right: 10px;height: 30px;"
+                    size="25"
+                    name="youtube_link"
+                    placeholder="Enter youtube video link here"
+                    type="text"
+                  />
+                  <input type="submit" value="Upload link" class="btn btn-success" style="border-radius: 10px; height: 20px; padding: 15px 12px; margin-bottom: 15px;"/>
+                  </div>
+                  
+                </form> -->
+                
+                 {% if youtube_link %}
+                <iframe src="{{youtube_link}}" width="400" height="300"></iframe>
+                {% endif %}
+               
+                <br>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <input
+                    style="margin-right: 10px;height: 30px;"
+                    size="25"
+                    name="youtube_link"
+                    placeholder="Enter youtube video link here"
+                    type="text"
+                  />
                     <div>
                         <label>Upload Multiple Files</label>
                         <input class="unstyle" type="file" name="uploaded_file" multiple required><br>
                     </div><br>
                     <input type="hidden" name="act" value="1">
+
                     <div>
                         <input type="hidden" name="del_sub" value="-1">
                         <button class="btn btn-success" type="submit" style="border-radius: 10px; height: 35px; padding: 20px 24px; margin-bottom: 15px;">Submit</button>
                     </div>
                 </form>
+              
+               
+              
+              
+                
                 {% if a.grading_type is False %}
                 <h4>Marks obtained by teacher: {{ teacher_marks }}/{{ tt_marks }}</h4>
                 <h4>Marks obtained by peer: {{ marks }}/{{ ts_marks }}

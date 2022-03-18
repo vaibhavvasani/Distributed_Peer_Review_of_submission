@@ -186,6 +186,15 @@
                         <button class="btn btn-warning radius" type="submit">Save</button>
                     </form>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h4>Submitted Video:</h4>
+                 {% if submitted_link  %}
+                <iframe src="{{submitted_link}}" width="400" height="300"></iframe>
+                {% endif %}
+               
             </div>
             <div class="col-sm-12 col-md-4 submitfiles">
                 <h4>Submitted Files:</h4>

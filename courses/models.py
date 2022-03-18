@@ -19,7 +19,6 @@ class CreatedClasses(models.Model):
         return self.class_name
 
 
-
 class JoinedClasses(models.Model):
     class_id = models.ForeignKey(CreatedClasses, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -42,6 +41,8 @@ class Assignments(models.Model):
         return self.assignment_name
 
 # for notices and uploads from the student side
+
+
 class notices(models.Model):
     notice_name = models.CharField(max_length=100)
 #    points = models.IntegerField()
@@ -51,19 +52,21 @@ class notices(models.Model):
 #    teacher_ratio = models.FloatField(blank=True, null=True)
 #    student_ratio = models.FloatField(blank=True, null=True)
 #    no_of_peers = models.IntegerField(blank=True, null=True)
-    created_on = models.DateTimeField(default = datetime.now, blank = True)
-
+    created_on = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
         return self.notice_name
 
+
 class noticeFile(models.Model):
     files = models.FileField(upload_to='subs/files/')
-    notice_id = models.ForeignKey(notices, on_delete= models.CASCADE)
+    notice_id = models.ForeignKey(notices, on_delete=models.CASCADE)
+
 
 class Submission(models.Model):
     sub_date = models.DateTimeField(default=timezone.now)
-    assignment_id = models.ForeignKey(Assignments, on_delete=models.CASCADE, default=None)
+    assignment_id = models.ForeignKey(
+        Assignments, on_delete=models.CASCADE, default=None)
     student = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     marks = models.IntegerField(blank=True, default=0)
     remark = models.CharField(default="Submitted on Time", max_length=100)
@@ -81,28 +84,25 @@ class SubmittedFiles(models.Model):
     submission_id = models.ForeignKey(Submission, on_delete=models.CASCADE)
 
 
+class SubmittedLink(models.Model):
+    youtube_link = models.URLField(max_length=200, default=None)
+    submission_id = models.ForeignKey(Submission, on_delete=models.CASCADE)
+
+
 class AssignedPeers(models.Model):
-    peer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='peer')
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='teacher')
+    peer = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='peer')
+    teacher = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='teacher')
     assignment = models.ForeignKey(Assignments, on_delete=models.CASCADE)
     student_marks = models.IntegerField(blank=True, null=True)
     question1 = models.TextField(max_length=1000, blank=True)
     question2 = models.TextField(max_length=1000, blank=True)
     question3 = models.TextField(max_length=1000, blank=True)
 
+
 class Comments(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     text = models.TextField(max_length=1000, blank=True)
     comment_date = models.DateTimeField(default=timezone.now)
     comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-
-
-
-
-
-
-
-
-

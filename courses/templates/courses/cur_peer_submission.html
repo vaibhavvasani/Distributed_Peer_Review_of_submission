@@ -62,6 +62,10 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-4">
+                <h4>Submitted Video:</h4>
+                {% if submitted_link  %}
+                <iframe src="{{submitted_link}}" width="400" height="300"></iframe>
+                {% endif %}              
                 <h4>Submitted Files:</h4>
                 {% for file in files %}
                 <h5><a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
