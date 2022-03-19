@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 't3c=^mcb1ws_2c0_xt1^h^6ui(zwd888l9c8^p0y9(8w1s$v14'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
 
 
 # Application definition
@@ -83,13 +84,14 @@ WSGI_APPLICATION = 'peergrade.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "ppergradeview-system",
-        'USER': "postgres",
-        'PASSWORD': "0000",
-        'HOST': "localhost",
+        'NAME': "d74jaes9j08c31",
+        'USER': "tdvfyteikswmcw",
+        'PASSWORD': "339ef79de8060dd04b05325989d1ee038d0854d3e30b3cfcfaa320820ddd3e35",
+        'HOST': "ec2-3-231-254-204.compute-1.amazonaws.com",
         'PORT': "5432"
     }
 }
+
 AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -136,10 +138,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
+# STATIC_URL = '/static/'
+# STATICFILES_DIR = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIR = [
-    os.path.join(BASE_DIR, 'static')
-]
+django_heroku.settings(locals())
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
