@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn distributed-peer-review.wsgi --log-file=-
+web: gunicorn peergrade.wsgi --log-file=-
