@@ -84,10 +84,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "d74jaes9j08c31",
-        'USER': "tdvfyteikswmcw",
-        'PASSWORD': "339ef79de8060dd04b05325989d1ee038d0854d3e30b3cfcfaa320820ddd3e35",
-        'HOST': "ec2-3-231-254-204.compute-1.amazonaws.com",
+        'NAME': "db4efcpvkb4geh",
+        'USER': "runuzxmuwbntun",
+        'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
+        'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
         'PORT': "5432"
     }
 }
