@@ -510,6 +510,220 @@ def cur_assignment_join(request, assignment_id):
             return render(request, 'courses/access_denied.html')
 
 
+# @login_required
+# def cur_assignment_join(request, assignment_id):
+#     context = {}
+#     embed_url = ""
+#     if request.POST:
+#         # if request.POST.get('youtube_link', False):
+#         #     values = request.POST['youtube_link']
+#         #     context['youtube_link'] = values
+#         #     if(len(values.split("/")) > 1):
+#         #         if values.find("watch") != -1:
+#         #             embed_url = "https://youtube.com/embed/" + \
+#         #                 values.split("watch?v=")[-1]
+#         #         else:
+#         #             embed_url = "https://youtube.com/embed/" + \
+#         #                 values.split("/")[-1]
+#         #         context['youtube_link'] = embed_url
+#         #     return render(request, 'courses/cur_assignment_join.html', context)
+#         if request.POST['del_sub'] != '-1' and request.POST['del_sub'] != '0':
+#             del_file = request.POST['del_sub']
+#             dobj = SubmittedFiles.objects.get(sub=del_file)
+#             dobj.delete()
+#         elif request.POST['del_sub'] == '-1' and request.POST.get('youtube_link', False):
+#             values = request.POST['youtube_link']
+#             if(len(values.split("/")) > 1):
+#                 if values.find("watch") != -1:
+#                     embed_url = "https://youtube.com/embed/" + \
+#                         values.split("watch?v=")[-1]
+#                 else:
+#                     embed_url = "https://youtube.com/embed/" + \
+#                         values.split("/")[-1]
+#             current_user = request.user
+#             cur_assignment = Assignments.objects.get(pk=assignment_id)
+#             data = request.POST
+#             files = request.FILES.getlist('uploaded_file')
+#             obj = Submission.objects.filter(assignment_id=cur_assignment).filter(
+#                 student=current_user).first()
+#             if obj is None:
+#                 obj1 = Submission(assignment_id=cur_assignment,
+#                                   student=current_user)
+#                 obj1.save()
+#                 if obj1.sub_date > cur_assignment.due_date:
+#                     obj1.remark = "Late Submission"
+#                     obj1.save()
+#                 for file in files:
+#                     temp = SubmittedFiles(sub=file, submission_id=obj1)
+#                     temp.save()
+#                 if embed_url != "":
+#                     link = SubmittedLink(
+#                         youtube_link=embed_url, submission_id=obj1)
+#                     link.save()
+#             else:
+#                 for file in files:
+#                     obj.sub_date = timezone.now()
+#                     if obj.sub_date > cur_assignment.due_date:
+#                         obj.remark = "Late Submission"
+#                         obj.save()
+#                     obj.save()
+#                     temp = SubmittedFiles(sub=file, submission_id=obj)
+#                     temp.save()
+#                 if embed_url != "":
+#                     link = SubmittedLink(
+#                         youtube_link=embed_url, submission_id=obj)
+#                     link.save()
+#         elif request.POST['del_sub'] == '-1' and not request.POST.get('youtube_link', False):
+#             current_user = request.user
+#             cur_assignment = Assignments.objects.get(pk=assignment_id)
+#             data = request.POST
+#             files = request.FILES.getlist('uploaded_file')
+#             obj = Submission.objects.filter(assignment_id=cur_assignment).filter(
+#                 student=current_user).first()
+#             if obj is None:
+#                 obj1 = Submission(assignment_id=cur_assignment,
+#                                   student=current_user)
+#                 obj1.save()
+#                 if obj1.sub_date > cur_assignment.due_date:
+#                     obj1.remark = "Late Submission"
+#                     obj1.save()
+#                 for file in files:
+#                     temp = SubmittedFiles(sub=file, submission_id=obj1)
+#                     temp.save()
+
+#             else:
+#                 for file in files:
+#                     obj.sub_date = timezone.now()
+#                     if obj.sub_date > cur_assignment.due_date:
+#                         obj.remark = "Late Submission"
+#                         obj.save()
+#                     obj.save()
+#                     temp = SubmittedFiles(sub=file, submission_id=obj)
+#                     temp.save()
+
+#         elif request.POST['act'] == '2':
+#             comment = request.POST['comment']
+#             cur_user = request.user
+#             curr_assignment = Assignments.objects.get(pk=assignment_id)
+#             submi = Submission.objects.filter(student=cur_user).filter(
+#                 assignment_id=curr_assignment).first()
+#             cur_comment = Comments(
+#                 text=comment, comment_user=cur_user, submission=submi)
+#             cur_comment.save()
+#     current_assignment = Assignments.objects.get(pk=assignment_id)
+#     sub = Submission.objects.filter(student=request.user).filter(
+#         assignment_id=current_assignment).first()
+
+#     comments = Comments.objects.filter(submission=sub)
+
+#     if current_assignment is not None:
+#         created_class_code = current_assignment.class_id.class_code
+#         created_class = CreatedClasses.objects.filter(
+#             class_code=created_class_code).first()
+#         if JoinedClasses.objects.filter(student=request.user).filter(class_id=created_class).first() is not None:
+#             no_peers = current_assignment.no_of_peers
+#             sub = Submission.objects.filter(student=request.user).filter(
+#                 assignment_id=current_assignment).first()
+#             sub_files = SubmittedFiles.objects.filter(submission_id=sub)
+#             if SubmittedLink.objects.filter(submission_id=sub) != None:
+#                 embed_url = SubmittedLink.objects.filter(submission_id=sub)
+#                 temp = ""
+#                 for link in embed_url:
+#                     temp = link.youtube_link
+#                 embed_url = temp
+#             s_ratio = current_assignment.student_ratio
+#             t_ratio = current_assignment.teacher_ratio
+#             t_points = current_assignment.points
+
+#             if current_assignment.grading_type is False:
+#                 peer_marks = []
+
+#                 marks = 0
+#                 total_marks = None
+
+#                 peer = AssignedPeers.objects.filter(
+#                     assignment=current_assignment).filter(peer=request.user)
+#                 if len(peer) == 0:
+#                     peer = peer.first()
+#                 if peer is not None:
+#                     for p in peer:
+#                         temp = p.student_marks
+#                         peer_marks.append(temp)
+#                     teacher_marks = None
+#                     if sub is not None:
+#                         if sub.marks is not None:
+#                             teacher_marks = sub.marks
+#                             teacher_marks = teacher_marks*(t_ratio/100)
+#                     if len(peer_marks) != 0:
+#                         count = 0
+#                         for i in peer_marks:
+#                             if i is not None:
+#                                 count += 1
+#                         if count != 0 and count == no_peers:
+#                             for i in peer_marks:
+#                                 marks = marks+i
+#                             marks = float(marks)/count
+#                             marks = marks*(s_ratio/100)
+#                             if teacher_marks is not None:
+#                                 total_marks = teacher_marks+marks
+#                         ts_marks = round(t_points*(s_ratio/100), 1)
+#                         tt_marks = round(t_points*(t_ratio/100), 1)
+#                     # peers=AssignedPeers.objects.filter(assignment=current_assignment).filter(peer=request.user)
+#                     flag = True
+#                     if teacher_marks is not None:
+#                         teacher_marks = round(teacher_marks, 1)
+#                     if total_marks is not None:
+#                         total_marks = round(total_marks, 1)
+#                     context = {
+#                         'a': current_assignment,
+#                         'sub': sub,
+#                         'files': sub_files,
+#                         'youtube_link': embed_url,
+#                         'marks': round(marks, 1),
+#                         'ts_marks': ts_marks,
+#                         'tt_marks': tt_marks,
+#                         'teacher_marks': teacher_marks,
+#                         'total_marks': total_marks,
+#                         't_points': t_points,
+#                         'comments': comments,
+#                         'flag': flag,
+#                         # 'peers': peers,
+#                         'count': count,
+#                         'no_peers': no_peers,
+#                     }
+#                 else:
+#                     teacher_marks = None
+#                     if sub is not None:
+#                         if sub.marks is not None:
+#                             teacher_marks = sub.marks
+#                     marks = "No peers assigned"
+#                     context = {
+#                         'a': current_assignment,
+#                         'sub': sub,
+#                         'files': sub_files,
+#                         'youtube_link': embed_url,
+#                         'marks': marks,
+#                         'teacher_marks': teacher_marks,
+#                         'tt_marks': current_assignment.points,
+#                         'comments': comments,
+#                     }
+#             else:
+#                 marks = "No peergrading"
+#                 context = {
+#                     'a': current_assignment,
+#                     'sub': sub,
+#                     'files': sub_files,
+#                     'youtube_link': embed_url,
+#                     'marks': marks,
+#                     'comments': comments,
+
+#                 }
+#             return render(request, 'courses/cur_assignment_join.html', context)
+#         else:
+#             return render(request, 'courses/access_denied.html')
+
+
+
 @login_required
 def view_feedback(request, assignment_id):
     current_assignment = Assignments.objects.get(pk=assignment_id)

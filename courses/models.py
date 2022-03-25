@@ -80,7 +80,7 @@ class Submission(models.Model):
 
 
 class SubmittedFiles(models.Model):
-    sub = models.FileField(upload_to='subs/files/')
+    sub = models.FileField(upload_to='subs/files/', blank=True)
     submission_id = models.ForeignKey(Submission, on_delete=models.CASCADE)
 
 

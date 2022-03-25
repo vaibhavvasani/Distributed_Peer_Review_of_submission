@@ -189,24 +189,26 @@
                 <br>
                 <br>
                 <br>
-                <br>
+                
+                {% if submitted_link  %}
                 <h4>Submitted Video:</h4>
-                 {% if submitted_link  %}
                 <iframe src="{{submitted_link}}" width="400" height="300"></iframe>
                 {% endif %}
                
             </div>
+            {% if files %}
             <div class="col-sm-12 col-md-4 submitfiles">
                 <h4>Submitted Files:</h4>
                 {% for file in files %}
                 <h5><a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
                 {% endfor %}
             </div>
+            {%  endif %}
       <form method="post" action="{% url 'cur_student_submission' current_sub.pk %}" class="commentform">
         {% csrf_token %}
         <h2>Comments</h2>
         <input type="text" name="comment" autocomplete="off" size="60">
-        <button type="submit">Post</button>
+        <button type="submit" style="background-color: rgb(43, 41, 41);">Post</button>
     </form>       
    </div>
   </div>

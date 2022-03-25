@@ -233,15 +233,15 @@
               {% csrf_token %}
             <input type="text" placeholder="Enter Student Username" name="student_username">
             <input type="hidden" name="nname" value="addstudent">
-            <button type="submit">Add Student</button>
+            <button type="submit" style="background-color: rgb(43, 41, 41);">Add Student</button>
               </form>
 
           <br>
             <form method="post">
               {% csrf_token %}
-            <input type="text" placeholder="Enter Teacher Username" name="teacher_username">
+            <input type="text" placeholder="Enter Teacher Username" name="teacher_username" >
             <input type="hidden" name="nname" value="addteacher">
-            <button type="submit">Add Teacher</button>
+            <button type="submit" style="background-color: rgb(43, 41, 41);">Add Teacher</button>
               </form>
           </div>
           <div class="dropdown">
@@ -249,10 +249,10 @@
               Options
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button style="border-radius: 12.5px; width: 100%; height: auto;" onclick="showform1()" class="btn btn-warning text-white font-weight-bold" >+Peer</button>
-              <button style="border-radius: 12.5px;"onclick="showform2()" class="btn btn-warning text-white font-weight-bold" >+Teacher</button>
-              <button style="border-radius: 12.5px;  width: 100%; height: auto;" onclick="shownotice()" class="btn btn-warning text-white font-weight-bold " >+Notice</button>
-              <form method="post" action="{% url 'homepage' %}" onsubmit="return confirm('Do you really want to delete the class?');">
+              <button style="border-radius: 12.5px; width: 100%; height: auto;" onclick="showform(1)" class="btn btn-warning text-white font-weight-bold" >+Peer</button>
+              <button style="border-radius: 12.5px;"onclick="showform(2)" class="btn btn-warning text-white font-weight-bold" >+Teacher</button>
+              <button style="border-radius: 12.5px;  width: 100%; height: auto;" onclick="showform(3)" class="btn btn-warning text-white font-weight-bold " >+Notice</button>
+              <form method="post" action="{% url 'homepage' %}" onsubmit="confirm('Do you really want to delete the class?');">
                 {% csrf_token %}
                 <input type="hidden" name="del_class" value="{{cur_class.pk}}">
                 <button style="border-radius: 12.5px;  width: 100%; height: auto;" type="submit" class="btn btn-danger text-white font-weight-bold">Delete</button>
@@ -345,7 +345,7 @@
         <label>Due Date:</label>
         <div></div>
       <div class="user-box">
-        <input type="datetime-local" name="due" autocomplete="off" required>
+        <input type="datetime-local" name="due" autocomplete="off"  required>
       </div>
       <div class="user-box">
         <input type="number" min="1" max="99" name="tratio" id="teacher_ratio" required>
@@ -357,7 +357,7 @@
       </div>
       <div>
       <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="showform1()" type="button" class="btn btn-danger">Cancel</button>
+      <button onclick="showform(1)" type="button" class="btn btn-danger">Cancel</button>
     </div>
     </form>
   </div>
@@ -383,7 +383,7 @@
       </div>
       <div>
       <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="showform2()" type="button" class="btn btn-danger">Cancel</button>
+      <button onclick="showform(2)" type="button" class="btn btn-danger">Cancel</button>
     </div>
     </form>
   </div>
@@ -403,44 +403,53 @@
 
       <div>
       <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="shownotice()" type="button" class="btn btn-danger">Cancel</button>
+      <button onclick="showform(3)" type="button" class="btn btn-danger">Cancel</button>
     </div>
     </form>
   </div>
 
 
 <script>
-    function showform1() {
-      if (document.getElementById('create1').style.visibility == 'visible') {
+  let num=0;
+    function showform(num) {
+      if (num==1){
+        if (document.getElementById('create1').style.visibility == 'visible') {
         document.getElementById('create1').style.visibility = 'hidden';
+        document.getElementById('create2').style.visibility = 'hidden';
+        document.getElementById('createnotice').style.visibility = 'hidden';
       } else {
         document.getElementById('create1').style.visibility = 'visible';
-      }
-    }
-  </script>
-
-
-
-  <script>
-    function shownotice() {
-      if (document.getElementById('createnotice').style.visibility == 'visible') {
+        document.getElementById('create2').style.visibility = 'hidden';
         document.getElementById('createnotice').style.visibility = 'hidden';
+      }
+      }
+      
+      if(num==3){
+        if (document.getElementById('createnotice').style.visibility == 'visible') {
+        document.getElementById('createnotice').style.visibility = 'hidden';
+        document.getElementById('create1').style.visibility = 'hidden';
+        document.getElementById('create2').style.visibility = 'hidden';
 
       } else {
         document.getElementById('createnotice').style.visibility = 'visible';
+        document.getElementById('create1').style.visibility = 'hidden';
+        document.getElementById('create2').style.visibility = 'hidden';
 
       }
-    }
-  </script>
-
-
-<script>
-    function showform2() {
-      if (document.getElementById('create2').style.visibility == 'visible') {
+      }
+      
+      if(num==2){
+    if (document.getElementById('create2').style.visibility == 'visible') {
         document.getElementById('create2').style.visibility = 'hidden';
+        document.getElementById('create1').style.visibility = 'hidden';
+        document.getElementById('createnotice').style.visibility = 'hidden';
       } else {
         document.getElementById('create2').style.visibility = 'visible';
+        document.getElementById('create1').style.visibility = 'hidden';
+        document.getElementById('createnotice').style.visibility = 'hidden';
       }
+  }
+      
     }
   </script>
 

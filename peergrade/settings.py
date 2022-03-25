@@ -26,7 +26,8 @@ SECRET_KEY = 't3c=^mcb1ws_2c0_xt1^h^6ui(zwd888l9c8^p0y9(8w1s$v14'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
+# ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
+ALLOWED_HOSTS=[]
 
 
 # Application definition
@@ -81,17 +82,27 @@ WSGI_APPLICATION = 'peergrade.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "db4efcpvkb4geh",
+#         'USER': "runuzxmuwbntun",
+#         'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
+#         'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
+#         'PORT': "5432"
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "db4efcpvkb4geh",
-        'USER': "runuzxmuwbntun",
-        'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
-        'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
+        'NAME': "ppergradeview-system",
+        'USER': "postgres",
+        'PASSWORD': "0000",
+        'HOST': "localhost",
         'PORT': "5432"
     }
 }
-
 AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admin, regardless of `allauth`

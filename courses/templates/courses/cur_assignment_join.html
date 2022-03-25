@@ -129,10 +129,12 @@
                 </form> -->
                 
                  {% if youtube_link %}
+                 <h4>Submitted Video:</h4>
                 <iframe src="{{youtube_link}}" width="400" height="300"></iframe>
                 {% endif %}
                
                 <br>
+                <div style="display: flex;">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input
@@ -142,16 +144,19 @@
                     placeholder="Enter youtube video link here"
                     type="text"
                   />
-                    <div>
+                  <!-- <br>
+                  <br> -->
+                    <!-- <div>
                         <label>Upload Multiple Files</label>
                         <input class="unstyle" type="file" name="uploaded_file" multiple required><br>
-                    </div><br>
+                    </div><br> -->
                     <input type="hidden" name="act" value="1">
 
-                    <div>
+                    <!-- <div> -->
                         <input type="hidden" name="del_sub" value="-1">
                         <button class="btn btn-success" type="submit" style="border-radius: 10px; height: 35px; padding: 20px 24px; margin-bottom: 15px;">Submit</button>
-                    </div>
+                    <!-- </div> -->
+                  </div>
                 </form>
               
                
@@ -168,11 +173,14 @@
                 <h4>Marks obtained: {{ sub.marks }}/{{ a.points }}</h4>
                 {% endif %}
             </div>
+            {% if files %}
             <div class="col-sm-12 col-md-4">
+              <h4>Submitted Files:</h4>
                 {% for file in files %}
                 <h5>Download here: <a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
                 {% endfor %}
             </div>
+            {% endif %}
             <div class='comments'>
             {% if sub %}
             <form method="post" action="{% url 'cur_assignment_join' a.pk %}" class='commentform'>
@@ -180,7 +188,7 @@
             <input type="text" name="comment" autocomplete="off" size="60">
             <input type="hidden" name="act" value="2">
                 <input type="hidden" name="del_sub" value="0">
-            <button type="submit">Post</button>
+            <button type="submit" style="background-color: rgb(43, 41, 41);">Post</button>
             </form>
             <h2>Comments</h2>
             {% for comment in comments %}
