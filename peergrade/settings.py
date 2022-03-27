@@ -27,7 +27,7 @@ SECRET_KEY = 't3c=^mcb1ws_2c0_xt1^h^6ui(zwd888l9c8^p0y9(8w1s$v14'
 DEBUG = True
 
 # ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
-ALLOWED_HOSTS=[]
+ALLOWED_HOSTS = []
 
 
 # Application definition

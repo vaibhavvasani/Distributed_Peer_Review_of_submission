@@ -144,11 +144,11 @@
                 <div class="header-info-left">
                   <ul>
                     {% if user.is_authenticated %}
-                       <li>{{user.username}}</li>
-                      <li>{{user.email}}</li>
-                      {% else %}
-                      <li>Login to explore</li>
-                      {% endif %}
+                    <li>{{user.username}}</li>
+                    <li>{{user.email}}</li>
+                    {% else %}
+                    <li>Login to explore</li>
+                    {% endif %}
                   </ul>
                 </div>
                 <div class="header-info-right">
@@ -231,31 +231,37 @@
           <div>
             <form method="post">
               {% csrf_token %}
-            <input type="text" placeholder="Enter Student Username" name="student_username">
-            <input type="hidden" name="nname" value="addstudent">
-            <button type="submit" style="background-color: rgb(43, 41, 41);">Add Student</button>
-              </form>
+              <input type="text" placeholder="Enter Student Username" name="student_username">
+              <input type="hidden" name="nname" value="addstudent">
+              <button type="submit" style="background-color: rgb(43, 41, 41);">Add Student</button>
+            </form>
 
-          <br>
+            <br>
             <form method="post">
               {% csrf_token %}
-            <input type="text" placeholder="Enter Teacher Username" name="teacher_username" >
-            <input type="hidden" name="nname" value="addteacher">
-            <button type="submit" style="background-color: rgb(43, 41, 41);">Add Teacher</button>
-              </form>
+              <input type="text" placeholder="Enter Teacher Username" name="teacher_username">
+              <input type="hidden" name="nname" value="addteacher">
+              <button type="submit" style="background-color: rgb(43, 41, 41);">Add Teacher</button>
+            </form>
           </div>
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Options
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button style="border-radius: 12.5px; width: 100%; height: auto;" onclick="showform(1)" class="btn btn-warning text-white font-weight-bold" >+Peer</button>
-              <button style="border-radius: 12.5px;"onclick="showform(2)" class="btn btn-warning text-white font-weight-bold" >+Teacher</button>
-              <button style="border-radius: 12.5px;  width: 100%; height: auto;" onclick="showform(3)" class="btn btn-warning text-white font-weight-bold " >+Notice</button>
-              <form method="post" action="{% url 'homepage' %}" onsubmit="confirm('Do you really want to delete the class?');">
+              <button style="border-radius: 12.5px; width: 100%; height: auto;" onclick="showform(1)"
+                class="btn btn-warning text-white font-weight-bold">+Peer</button>
+              <button style="border-radius: 12.5px;" onclick="showform(2)"
+                class="btn btn-warning text-white font-weight-bold">+Teacher</button>
+              <button style="border-radius: 12.5px;  width: 100%; height: auto;" onclick="showform(3)"
+                class="btn btn-warning text-white font-weight-bold ">+Notice</button>
+              <form method="post" action="{% url 'homepage' %}"
+                onsubmit="confirm('Do you really want to delete the class?');">
                 {% csrf_token %}
                 <input type="hidden" name="del_class" value="{{cur_class.pk}}">
-                <button style="border-radius: 12.5px;  width: 100%; height: auto;" type="submit" class="btn btn-danger text-white font-weight-bold">Delete</button>
+                <button style="border-radius: 12.5px;  width: 100%; height: auto;" type="submit"
+                  class="btn btn-danger text-white font-weight-bold">Delete</button>
               </form>
             </div>
           </div>
@@ -282,7 +288,7 @@
         <div>
           {% if messages %}
           {% for message in messages %}
-            {{message}}
+          {{message}}
           {% endfor %}
           {% endif %}
         </div>
@@ -291,38 +297,43 @@
           <div class="container">
             <div class="row row-content">
               <div class="col-md-12 col-sm-12" style="padding: 0px 0px;">
-              {% for a in assignments %}
-                <div class="single-cat float-left" style="width: 30%; margin: 0px 0px 20px 30px; padding: 10px; height: 350px">
-                    <div style="text-align: center;" class="cat-icon mb-3"><a href="{% url 'cur_assignment_create' a.pk %}">
+                {% for a in assignments %}
+                <div class="single-cat float-left"
+                  style="width: 30%; margin: 0px 0px 20px 30px; padding: 10px; height: 350px">
+                  <div style="text-align: center;" class="cat-icon mb-3"><a
+                      href="{% url 'cur_assignment_create' a.pk %}">
                       <span class="flaticon-web-design"></span></a>
-                    </div>
-                    <div style="text-align: center;" class="cat-cap">
-                      <h5 style="text-transform: uppercase; text-decoration: underline;"><a href="{% url 'cur_assignment_create' a.pk %}">{{a.assignment_name}}</a></h5>
-                      <p style="margin-bottom: 17px;">Max Points: {{a.points}}</p>
-                      <p style="margin-bottom: 15px;">Due: {{a.due_date}}</p>
-                      {% if a.grading_type is False %}
-                      <a style="margin-bottom: 17px;" href="{% url 'assign_peers' a.pk class_id %}">Assign Peers</a>
-                      {% endif %}
-                      <!-- <a href="{% url 'cur_assignment_create' a.pk %}" class="read-more1"><span>Peers <i class="fa fa-graduation-cap"></i></span></a> -->
-                    </div>
                   </div>
-              {% endfor %}
+                  <div style="text-align: center;" class="cat-cap">
+                    <h5 style="text-transform: uppercase; text-decoration: underline;"><a
+                        href="{% url 'cur_assignment_create' a.pk %}">{{a.assignment_name}}</a></h5>
+                    <p style="margin-bottom: 17px;">Max Points: {{a.points}}</p>
+                    <p style="margin-bottom: 15px;">Due: {{a.due_date}}</p>
+                    {% if a.grading_type is False %}
+                    <a style="margin-bottom: 17px;" href="{% url 'assign_peers' a.pk class_id %}">Assign Peers</a>
+                    {% endif %}
+                    <!-- <a href="{% url 'cur_assignment_create' a.pk %}" class="read-more1"><span>Peers <i class="fa fa-graduation-cap"></i></span></a> -->
+                  </div>
+                </div>
+                {% endfor %}
 
-              {% for n in notice %}
-                <div class="single-cat float-left" style="width: 30%; margin: 0px 0px 20px 30px; padding: 10px; height: 350px">
+                {% for n in notice %}
+                <div class="single-cat float-left"
+                  style="width: 30%; margin: 0px 0px 20px 30px; padding: 10px; height: 350px">
                   <div style="text-align: center;" class="cat-icon mb-3"><a href="{% url 'cur_notice' n.pk %}">
                       <span class="flaticon-web-design"></span></a>
-                    </div>
-                    <div style="text-align: center;" class="cat-cap">
-                      <h5 style="text-transform: uppercase; text-decoration: underline;"><a href="{% url 'cur_notice' n.pk %}">{{n.notice_name}}</a></h5>
-                      <p style="margin-bottom: 15px;">Posted On: {{n.created_on}}</p>
-                    </div>
                   </div>
-              {% endfor %}
+                  <div style="text-align: center;" class="cat-cap">
+                    <h5 style="text-transform: uppercase; text-decoration: underline;"><a
+                        href="{% url 'cur_notice' n.pk %}">{{n.notice_name}}</a></h5>
+                    <p style="margin-bottom: 15px;">Posted On: {{n.created_on}}</p>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       </div>
     </section>
@@ -342,23 +353,23 @@
         <input type="number" name="points" autocomplete="off" min="0" max="100" required>
         <label>Points</label>
       </div>
-        <label>Due Date:</label>
-        <div></div>
+      <label>Due Date:</label>
+      <div></div>
       <div class="user-box">
-        <input type="datetime-local" name="due" autocomplete="off"  required>
+        <input type="datetime-local" name="due" autocomplete="off" required>
       </div>
       <div class="user-box">
-        <input type="number" min="1" max="99" name="tratio" id="teacher_ratio" required>
+        <input type="number" min="0" max="100" name="tratio" id="teacher_ratio" required>
         <label>Teacher Ratio</label>
       </div>
       <div class="user-box">
-        <input type="number" min="1" max="5" name="no_of_peers" id="no_peers" required>
+        <input type="number" min="1" max="{{total_students}}" name="no_of_peers" id="no_peers" required>
         <label>Number of Peers</label>
       </div>
       <div>
-      <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="showform(1)" type="button" class="btn btn-danger">Cancel</button>
-    </div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <button onclick="showform(1)" type="button" class="btn btn-danger">Cancel</button>
+      </div>
     </form>
   </div>
 
@@ -376,15 +387,15 @@
         <input type="number" name="points" autocomplete="off" min="0" max="100" required>
         <label>Points</label>
       </div>
-        <label>Due Date:</label>
-        <div></div>
+      <label>Due Date:</label>
+      <div></div>
       <div class="user-box">
         <input type="datetime-local" name="due" autocomplete="off" required>
       </div>
       <div>
-      <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="showform(2)" type="button" class="btn btn-danger">Cancel</button>
-    </div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <button onclick="showform(2)" type="button" class="btn btn-danger">Cancel</button>
+      </div>
     </form>
   </div>
 
@@ -402,154 +413,155 @@
       </div>
 
       <div>
-      <button type="submit" class="btn btn-success">Create</button>
-      <button onclick="showform(3)" type="button" class="btn btn-danger">Cancel</button>
-    </div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <button onclick="showform(3)" type="button" class="btn btn-danger">Cancel</button>
+      </div>
     </form>
   </div>
 
 
-<script>
-  let num=0;
+  <script>
+    let num = 0;
+
     function showform(num) {
-      if (num==1){
+      if (num == 1) {
         if (document.getElementById('create1').style.visibility == 'visible') {
-        document.getElementById('create1').style.visibility = 'hidden';
-        document.getElementById('create2').style.visibility = 'hidden';
-        document.getElementById('createnotice').style.visibility = 'hidden';
-      } else {
-        document.getElementById('create1').style.visibility = 'visible';
-        document.getElementById('create2').style.visibility = 'hidden';
-        document.getElementById('createnotice').style.visibility = 'hidden';
+          document.getElementById('create1').style.visibility = 'hidden';
+          document.getElementById('create2').style.visibility = 'hidden';
+          document.getElementById('createnotice').style.visibility = 'hidden';
+        } else {
+          document.getElementById('create1').style.visibility = 'visible';
+          document.getElementById('create2').style.visibility = 'hidden';
+          document.getElementById('createnotice').style.visibility = 'hidden';
+        }
       }
-      }
-      
-      if(num==3){
+
+      if (num == 3) {
         if (document.getElementById('createnotice').style.visibility == 'visible') {
-        document.getElementById('createnotice').style.visibility = 'hidden';
-        document.getElementById('create1').style.visibility = 'hidden';
-        document.getElementById('create2').style.visibility = 'hidden';
+          document.getElementById('createnotice').style.visibility = 'hidden';
+          document.getElementById('create1').style.visibility = 'hidden';
+          document.getElementById('create2').style.visibility = 'hidden';
 
-      } else {
-        document.getElementById('createnotice').style.visibility = 'visible';
-        document.getElementById('create1').style.visibility = 'hidden';
-        document.getElementById('create2').style.visibility = 'hidden';
+        } else {
+          document.getElementById('createnotice').style.visibility = 'visible';
+          document.getElementById('create1').style.visibility = 'hidden';
+          document.getElementById('create2').style.visibility = 'hidden';
 
+        }
       }
+
+      if (num == 2) {
+        if (document.getElementById('create2').style.visibility == 'visible') {
+          document.getElementById('create2').style.visibility = 'hidden';
+          document.getElementById('create1').style.visibility = 'hidden';
+          document.getElementById('createnotice').style.visibility = 'hidden';
+        } else {
+          document.getElementById('create2').style.visibility = 'visible';
+          document.getElementById('create1').style.visibility = 'hidden';
+          document.getElementById('createnotice').style.visibility = 'hidden';
+        }
       }
-      
-      if(num==2){
-    if (document.getElementById('create2').style.visibility == 'visible') {
-        document.getElementById('create2').style.visibility = 'hidden';
-        document.getElementById('create1').style.visibility = 'hidden';
-        document.getElementById('createnotice').style.visibility = 'hidden';
-      } else {
-        document.getElementById('create2').style.visibility = 'visible';
-        document.getElementById('create1').style.visibility = 'hidden';
-        document.getElementById('createnotice').style.visibility = 'hidden';
-      }
-  }
-      
+
     }
   </script>
 
-    <!--------------------------------COPY START  ---------------------------------->
+  <!--------------------------------COPY START  ---------------------------------->
 
-    <!--? Footer Start-->
-<footer style="margin-top: 50px;">
+  <!--? Footer Start-->
+  <footer style="margin-top: 50px;">
     <!--------------------------------COPY START  ---------------------------------->
 
     <div class="footer-area footer-bg">
-    <div class="container">
-      <div class="footer-top footer-padding">
-        <!-- footer Heading -->
-        <div class="footer-heading">
-          <div class="row justify-content-between">
-            <div class="col-xl-6 col-lg-7 col-md-10">
-              <div class="footer-tittle2">
-                <h4>Stay Updated</h4>
-              </div>
-              <!-- Form -->
-              <div class="footer-form mb-50">
-                <div id="mc_embed_signup">
-                  <form target="_blank"
-                    action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                    method="get" class="subscribe_form relative mail_part" novalidate="true">
-                    <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address "
-                      class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                      onblur="this.placeholder = 'Your email address'" />
-                    <div class="form-icon">
-                      <button type="submit" name="submit" id="newsletter-submit"
-                        class="email_icon newsletter-submit button-contactForm">
-                        Subscribe Now
-                      </button>
-                    </div>
-                    <div class="mt-10 info"></div>
-                  </form>
+      <div class="container">
+        <div class="footer-top footer-padding">
+          <!-- footer Heading -->
+          <div class="footer-heading">
+            <div class="row justify-content-between">
+              <div class="col-xl-6 col-lg-7 col-md-10">
+                <div class="footer-tittle2">
+                  <h4>Stay Updated</h4>
+                </div>
+                <!-- Form -->
+                <div class="footer-form mb-50">
+                  <div id="mc_embed_signup">
+                    <form target="_blank"
+                      action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                      method="get" class="subscribe_form relative mail_part" novalidate="true">
+                      <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address "
+                        class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Your email address'" />
+                      <div class="form-icon">
+                        <button type="submit" name="submit" id="newsletter-submit"
+                          class="email_icon newsletter-submit button-contactForm">
+                          Subscribe Now
+                        </button>
+                      </div>
+                      <div class="mt-10 info"></div>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xl-5 col-lg-5">
-              <div class="footer-tittle2">
-                <h4>Let’s Get Social</h4>
-              </div>
-              <!-- Footer Social -->
-              <div class="footer-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-google"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+              <div class="col-xl-5 col-lg-5">
+                <div class="footer-tittle2">
+                  <h4>Let’s Get Social</h4>
+                </div>
+                <!-- Footer Social -->
+                <div class="footer-social">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-google"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
               </div>
             </div>
           </div>
+          <!-- Footer Menu -->
+
+          <div class="media contact-info" style="float: left;margin-right: 120px;">
+            <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
+            <div class="media-body ">
+              <h3 style="color: white;">K. J. Somaiya College of Engineering<br /><span
+                  style="margin-left: 45px;">Mumbai, 400077<span></h3>
+
+            </div>
+          </div>
+          <div class="media contact-info" style="float: left;margin-right:190px; ">
+            <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
+            <div class="media-body">
+              <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
+
+            </div>
+          </div>
+          <div class="media contact-info" style="float: left;">
+            <span class="contact-info__icon"><i class="ti-email"></i></span>
+            <div class="media-body">
+              <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
+
+            </div>
+          </div>
+
+
+
         </div>
-        <!-- Footer Menu -->
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="row d-flex align-items-center">
+            <div class="col-lg-12">
+              <div class="footer-copy-right text-center">
 
-              <div class="media contact-info" style="float: left;margin-right: 120px;">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
-                <div class="media-body ">
-                  <h3 style="color: white;">K. J. Somaiya College of Engineering<br/><span style="margin-left: 45px;">Mumbai, 400077<span></h3>
-
-                </div>
               </div>
-              <div class="media contact-info" style="float: left;margin-right:190px; ">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i
-                ></span>
-                <div class="media-body">
-                  <h3 style="color: white;">+91-1234567890<br/>Mon to Fri 9am to 6pm</h3>
-
-                </div>
-              </div>
-              <div class="media contact-info" style="float: left;">
-                <span class="contact-info__icon" ><i class="ti-email"></i></span>
-                <div class="media-body">
-                  <h3 style="color: white;">peergrade123@gmail.com<br/>Send us your query anytime!</h3>
-
-                </div>
-              </div>
-
-
-
-      </div>
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <div class="row d-flex align-items-center">
-          <div class="col-lg-12">
-            <div class="footer-copy-right text-center">
-
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Footer End-->
-</footer>
-<!-- Scroll Up -->
-<div id="back-top">
+    <!-- Footer End-->
+  </footer>
+  <!-- Scroll Up -->
+  <div id="back-top">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
+  </div>
 
   <!-- JS here -->
 
@@ -593,4 +605,3 @@
 </body>
 
 </html>
-

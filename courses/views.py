@@ -1,3 +1,4 @@
+from ntpath import join
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.files.storage import FileSystemStorage
 from .forms import UserRegisterForm
@@ -204,11 +205,16 @@ def assign_peers(request, class_id, assignment_id):
     cur_assignment = Assignments.objects.get(pk=assignment_id)
     created_class = CreatedClasses.objects.get(pk=class_id)
     joined_students = JoinedClasses.objects.filter(class_id=created_class)
+    # print(len(joined_students))
     no_of_peers = cur_assignment.no_of_peers
+
     obj = AssignedPeers.objects.filter(assignment=cur_assignment).first()
-    if obj is None and total_students != 0 and no_of_peers < total_students:
+    print(obj)
+
+    if (obj is None and total_students != 0 and no_of_peers < total_students):
         student_list = []
         for s in joined_students:
+            print(s)
             cur_s = s.student
             student_list.append(cur_s)
         students = random.sample(student_list, len(student_list))
@@ -292,6 +298,7 @@ def join_cur_class(request, class_id):
             'class_id': class_id,
             "notice": notice,
         }
+
         return render(request, 'courses/join_cur_class.html', context)
     else:
         return render(request, 'courses/access_denied.html')
@@ -301,6 +308,7 @@ def join_cur_class(request, class_id):
 def cur_assignment_join(request, assignment_id):
     context = {}
     embed_url = ""
+
     if request.POST:
         # if request.POST.get('youtube_link', False):
         #     values = request.POST['youtube_link']
@@ -421,6 +429,8 @@ def cur_assignment_join(request, assignment_id):
             s_ratio = current_assignment.student_ratio
             t_ratio = current_assignment.teacher_ratio
             t_points = current_assignment.points
+            if(len(embed_url) != 0):
+                edit = True
 
             if current_assignment.grading_type is False:
                 peer_marks = []
@@ -432,6 +442,7 @@ def cur_assignment_join(request, assignment_id):
                     assignment=current_assignment).filter(peer=request.user)
                 if len(peer) == 0:
                     peer = peer.first()
+
                 if peer is not None:
                     for p in peer:
                         temp = p.student_marks
@@ -461,6 +472,7 @@ def cur_assignment_join(request, assignment_id):
                         teacher_marks = round(teacher_marks, 1)
                     if total_marks is not None:
                         total_marks = round(total_marks, 1)
+
                     context = {
                         'a': current_assignment,
                         'sub': sub,
@@ -477,6 +489,7 @@ def cur_assignment_join(request, assignment_id):
                         # 'peers': peers,
                         'count': count,
                         'no_peers': no_peers,
+                        'edit': edit,
                     }
                 else:
                     teacher_marks = None
@@ -493,6 +506,7 @@ def cur_assignment_join(request, assignment_id):
                         'teacher_marks': teacher_marks,
                         'tt_marks': current_assignment.points,
                         'comments': comments,
+                        'edit': edit,
                     }
             else:
                 marks = "No peergrading"
@@ -503,7 +517,7 @@ def cur_assignment_join(request, assignment_id):
                     'youtube_link': embed_url,
                     'marks': marks,
                     'comments': comments,
-
+                    'edit': edit,
                 }
             return render(request, 'courses/cur_assignment_join.html', context)
         else:
@@ -723,7 +737,6 @@ def cur_assignment_join(request, assignment_id):
 #             return render(request, 'courses/access_denied.html')
 
 
-
 @login_required
 def view_feedback(request, assignment_id):
     current_assignment = Assignments.objects.get(pk=assignment_id)
@@ -840,8 +853,11 @@ def cur_student_submission(request, submission_id):
                     if i is not None:
                         count += 1
                 if count != 0 and count == no_peers:
+
                     for i in peer_marks:
-                        marks = marks+i
+                        if(i is not None):
+                            marks = marks+i
+                        print(marks)
                     marks = float(marks)/count
                     marks = marks*(s_ratio/100)
                     if teacher_marks is not None:
@@ -925,13 +941,18 @@ def peers_assigned(request, assignment_id):
     cur_user = request.user
     current_assignment = Assignments.objects.get(pk=assignment_id)
 
+    print(current_assignment)
+
     created_class = current_assignment.class_id
+    print(created_class)
 
     if JoinedClasses.objects.filter(student=cur_user).filter(class_id=created_class).first() == None:
         return render(request, 'courses/access_denied.html')
     if request.POST:
+        print(request.POST)
         obj = AssignedPeers.objects.filter(peer=request.POST['cur_peer']).filter(
             assignment=current_assignment).filter(teacher=cur_user).first()
+        print(obj)
         obj.student_marks = request.POST['marks']
         obj.question1 = request.POST['question1']
         obj.question2 = request.POST['question2']
@@ -950,6 +971,7 @@ def peers_assigned(request, assignment_id):
         'assignment': current_assignment,
         'submissions': peer_sub,
     }
+    print(context)
     return render(request, 'courses/peers_assigned.html', context)
 
 

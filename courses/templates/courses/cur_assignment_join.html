@@ -6,71 +6,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Peer2Peer-Grading: {{ a.assignment_name }}</title>
-    <style>
-        .underline {
-        border-top-style: hidden;
-        border-right-style: hidden;
-        border-left-style: hidden;
-        border-bottom-style: groove;
-        background-color: #ffffff;
-        height: 45px;
-        font-family: "Lucida Console", Courier, monospace;
-        width:250px;
-        margin-bottom: 30px;
+  <meta charset="UTF-8">
+  <title>Peer2Peer-Grading: {{ a.assignment_name }}</title>
+  <style>
+    .underline {
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: groove;
+      background-color: #ffffff;
+      height: 45px;
+      font-family: "Lucida Console", Courier, monospace;
+      width: 250px;
+      margin-bottom: 30px;
     }
+
     /*input[type="file"] {
         display: none;
     }*/
 
-    .feedback{
+    .feedback {
       position: relative;
       left: 18%;
     }
 
-    .comments{
+    .comments {
       width: 60%;
       margin-top: 5%;
       position: relative;
       left: 18%;
     }
-    .comments p:nth-child(even){
-        width: 100%;
-        height: auto;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 10px;
-        color: black;  
+
+    .comments p:nth-child(even) {
+      width: 100%;
+      height: auto;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      color: black;
     }
 
-    .comments p:nth-child(odd){
-        width: 100%;
-        height: auto;
-        background-color: rgba(17, 6, 3, 0.39);
-        border-radius: 10px;
-        color: white;
+    .comments p:nth-child(odd) {
+      width: 100%;
+      height: auto;
+      background-color: rgba(17, 6, 3, 0.39);
+      border-radius: 10px;
+      color: white;
     }
 
-    .commentform{
+    .commentform {
       position: relative;
-        left: 5%;
-        width: 60%;
+      left: 5%;
+      width: 60%;
     }
 
 
     .custom-file-upload {
-        border-radius:10px;
-        display: inline-block;
-        padding: 6px 12px;
-        /*height: 35px;
+      border-radius: 10px;
+      display: inline-block;
+      padding: 6px 12px;
+      /*height: 35px;
         width: 75px;*/
-        cursor: pointer;
-        margin-bottom: 0px;
+      cursor: pointer;
+      margin-bottom: 0px;
     }
+
     /*.unstyle {
         border-radius: 10px;
     }
-*/    /*.btn-warning {
+*/
+    /*.btn-warning {
         text-decoration-color: white;
     }*/
     /*@media only screen and (min-width: 694px) and (max-width: 1059px){
@@ -78,42 +82,42 @@
             margin-left: 0px;
         }
     }*/
-    @media only screen and (max-width: 358px){
-        .underline {
-            margin-right: 5px;
-        }
+    @media only screen and (max-width: 358px) {
+      .underline {
+        margin-right: 5px;
+      }
     }
-    </style>
+  </style>
 </head>
 
 
 <body>
-    <hr>
-    <div class="container-fluid">
-        <div class="row-content row">
-            <div class="offset-md-2 col-sm-12 col-md-8 text-center">
-                <div class="offset-md-4 col-md-4">
-                    <h5 style="font-size: 14px;">Assignment Name:</h5>
-                </div>
-                <div class="offset-md-4 offset-sm-2 col-sm-8 col-md-4">
-                    <h1 style = "text-transform:capitalize; margin-bottom: 30px;"> {{ a.assignment_name }} </h1>
-                </div>
-                <hr style="border: 1px solid gray; width: 100%;">
-            </div>
-            <div class="col-md-2">
-                <h5>Max Marks: {{ a.points }}</h5>
-            </div>
-            <div class='feedback'>
-            {% if flag is True %}
-                <h2><a href="{% url 'view_feedback' a.pk %}">See Feedback</a></h2>
-            {% endif %}</div>
-
+  <hr>
+  <div class="container-fluid">
+    <div class="row-content row">
+      <div class="offset-md-2 col-sm-12 col-md-8 text-center">
+        <div class="offset-md-4 col-md-4">
+          <h5 style="font-size: 14px;">Assignment Name:</h5>
         </div>
-        <div class="row-content row">
-            <div class="offset-md-2 col-md-4">
-                    
-             
-                <!-- <form method="post">
+        <div class="offset-md-4 offset-sm-2 col-sm-8 col-md-4">
+          <h1 style="text-transform:capitalize; margin-bottom: 30px;"> {{ a.assignment_name }} </h1>
+        </div>
+        <hr style="border: 1px solid gray; width: 100%;">
+      </div>
+      <div class="col-md-2">
+        <h5>Max Marks: {{ a.points }}</h5>
+      </div>
+      <div class='feedback'>
+        {% if flag is True %}
+        <h2><a href="{% url 'view_feedback' a.pk %}">See Feedback</a></h2>
+        {% endif %}</div>
+
+    </div>
+    <div class="row-content row">
+      <div class="offset-md-2 col-md-4">
+
+
+        <!-- <form method="post">
                   {% csrf_token %}
                   <div style="display: flex;flex-direction: row;">
                     <input
@@ -127,85 +131,86 @@
                   </div>
                   
                 </form> -->
-                
-                 {% if youtube_link %}
-                 <h4>Submitted Video:</h4>
-                <iframe src="{{youtube_link}}" width="400" height="300"></iframe>
-                {% endif %}
-               
-                <br>
-                <div style="display: flex;">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input
-                    style="margin-right: 10px;height: 30px;"
-                    size="25"
-                    name="youtube_link"
-                    placeholder="Enter youtube video link here"
-                    type="text"
-                  />
-                  <!-- <br>
+
+        {% if youtube_link %}
+        <h4>Submitted Video:</h4>
+        <iframe src="{{youtube_link}}" width="400" height="300"></iframe>
+        {% endif %}
+
+        <br>
+        <div style="display: flex;">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input style="margin-right: 10px;height: 30px;" size="25" name="youtube_link"
+              placeholder="Enter youtube video link here" type="text" />
+            <!-- <br>
                   <br> -->
-                    <!-- <div>
+            <!-- <div>
                         <label>Upload Multiple Files</label>
                         <input class="unstyle" type="file" name="uploaded_file" multiple required><br>
                     </div><br> -->
-                    <input type="hidden" name="act" value="1">
+            <input type="hidden" name="act" value="1">
 
-                    <!-- <div> -->
-                        <input type="hidden" name="del_sub" value="-1">
-                        <button class="btn btn-success" type="submit" style="border-radius: 10px; height: 35px; padding: 20px 24px; margin-bottom: 15px;">Submit</button>
-                    <!-- </div> -->
-                  </div>
-                </form>
-              
-               
-              
-              
-                
-                {% if a.grading_type is False %}
-                <h4>Marks obtained by teacher: {{ teacher_marks }}/{{ tt_marks }}</h4>
-                <h4>Marks obtained by peer: {{ marks }}/{{ ts_marks }}
-                {% if total_marks %}
-                <h4>Total Marks: {{ total_marks }}/{{ t_points }}</h4>
-                {% endif %}
-                {% else %}
-                <h4>Marks obtained: {{ sub.marks }}/{{ a.points }}</h4>
-                {% endif %}
-            </div>
-            {% if files %}
-            <div class="col-sm-12 col-md-4">
-              <h4>Submitted Files:</h4>
-                {% for file in files %}
-                <h5>Download here: <a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
-                {% endfor %}
-            </div>
+            <!-- <div> -->
+            <input type="hidden" name="del_sub" value="-1">
+            {% if edit %}
+            <button class="btn btn-success" type="submit"
+              style="border-radius: 10px; height: 35px; padding: 20px 24px; margin-bottom: 15px;">Edit</button>
+            {% else %}
+            <button class="btn btn-success" type="submit"
+              style="border-radius: 10px; height: 35px; padding: 20px 24px; margin-bottom: 15px;">Submit</button>
             {% endif %}
-            <div class='comments'>
-            {% if sub %}
-            <form method="post" action="{% url 'cur_assignment_join' a.pk %}" class='commentform'>
-            {% csrf_token %}
-            <input type="text" name="comment" autocomplete="off" size="60">
-            <input type="hidden" name="act" value="2">
-                <input type="hidden" name="del_sub" value="0">
-            <button type="submit" style="background-color: rgb(43, 41, 41);">Post</button>
-            </form>
-            <h2>Comments</h2>
-            {% for comment in comments %}
-            <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
-              {{comment.comment_date}}</p>
-            {% endfor %}
-            {% endif %}
-          </div>
+            <!-- </div> -->
         </div>
+        </form>
+
+
+
+
+
+        {% if a.grading_type is False %}
+        <h4>Marks obtained by teacher: {{ teacher_marks }}/{{ tt_marks }}</h4>
+        <h4>Marks obtained by peer: {{ marks }}/{{ ts_marks }}
+          {% if total_marks %}
+          <h4>Total Marks: {{ total_marks }}/{{ t_points }}</h4>
+          {% endif %}
+          {% else %}
+          <h4>Marks obtained: {{ sub.marks }}/{{ a.points }}</h4>
+          {% endif %}
+      </div>
+      {% if files %}
+      <div class="col-sm-12 col-md-4">
+        <h4>Submitted Files:</h4>
+        {% for file in files %}
+        <h5>Download here: <a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class='comments'>
+        {% if sub %}
+        <form method="post" action="{% url 'cur_assignment_join' a.pk %}" class='commentform'>
+          {% csrf_token %}
+          <input type="text" name="comment" autocomplete="off" size="60">
+          <input type="hidden" name="act" value="2">
+          <input type="hidden" name="del_sub" value="0">
+          <button type="submit" style="background-color: rgb(43, 41, 41);">Post</button>
+        </form>
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
+          {{comment.comment_date}}</p>
+        {% endfor %}
+        {% endif %}
+      </div>
     </div>
+  </div>
 </body>
 <footer style="margin-top: 50px;">
-    <!--------------------------------COPY START  ---------------------------------->
+  <!--------------------------------COPY START  ---------------------------------->
 
-    <!--? Footer Start-->
+  <!--? Footer Start-->
 
-    <div class="footer-area footer-bg">
+  <div class="footer-area footer-bg">
     <div class="container">
       <div class="footer-top footer-padding">
         <!-- footer Heading -->
@@ -251,32 +256,32 @@
           </div>
         </div>
         <!-- Footer Menu -->
-   
-              <div class="media contact-info" style="float: left;margin-right: 120px;">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
-                <div class="media-body ">
-                  <h3 style="color: white;">K. J. Somaiya College of Engineering<br/><span style="margin-left: 45px;">Mumbai, 400077<span></h3>
-              
-                </div>
-              </div>
-              <div class="media contact-info" style="float: left;margin-right:190px; ">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i
-                ></span>
-                <div class="media-body">
-                  <h3 style="color: white;">+91-1234567890<br/>Mon to Fri 9am to 6pm</h3>
-                 
-                </div>
-              </div>
-              <div class="media contact-info">
-                <span class="contact-info__icon" ><i class="ti-email"></i></span>
-                <div class="media-body">
-                  <h3 style="color: white;">peergrade123@gmail.com<br/>Send us your query anytime!</h3>
-                  
-                </div>
-              </div>
+
+        <div class="media contact-info" style="float: left;margin-right: 120px;">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
+          <div class="media-body ">
+            <h3 style="color: white;">K. J. Somaiya College of Engineering<br /><span style="margin-left: 45px;">Mumbai,
+                400077<span></h3>
+
+          </div>
+        </div>
+        <div class="media contact-info" style="float: left;margin-right:190px; ">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
+
+          </div>
+        </div>
+        <div class="media contact-info">
+          <span class="contact-info__icon"><i class="ti-email"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
+
+          </div>
+        </div>
 
 
-       
+
       </div>
       <!-- Footer Bottom -->
       <div class="footer-bottom">
@@ -294,7 +299,7 @@
 </footer>
 <!-- Scroll Up -->
 <div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
 </div>
 
 <!-- JS here -->
