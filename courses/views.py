@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import random
 from datetime import datetime
+from django.forms.models import model_to_dict
+
 
 # Create your views here.
 
@@ -185,7 +187,16 @@ def cur_class(request, class_id):
                 notice.append(n)
         total_students = len(
             JoinedClasses.objects.filter(class_id=current)) - 1
+        print(current)
+        print(class_id)
+        students = JoinedClasses.objects.filter(
+            class_id=current).values('student')
+        students_list = [User.objects.get(id=c['student'])
+                         for i, c in enumerate(students)]
+        print(students_list)
+
         context = {
+            'students': students_list,
             'total_students': total_students,
             'cur_class': current,
             'assignments': assignments,
@@ -280,7 +291,7 @@ def joinclass(request):
 def join_cur_class(request, class_id):
     current_class = CreatedClasses.objects.get(pk=class_id)
     if JoinedClasses.objects.filter(class_id=current_class).filter(student=request.user).first() is not None:
-        #created_class = CreatedClasses.objects.filter(class_code=current_class.class_code)
+        # created_class = CreatedClasses.objects.filter(class_code=current_class.class_code)
         all_classes = CreatedClasses.objects.filter(
             class_code=current_class.class_code)
         assignments = []
@@ -308,6 +319,7 @@ def join_cur_class(request, class_id):
 def cur_assignment_join(request, assignment_id):
     context = {}
     embed_url = ""
+    edit = False
 
     if request.POST:
         # if request.POST.get('youtube_link', False):
@@ -869,6 +881,7 @@ def cur_student_submission(request, submission_id):
             if total_marks is not None:
                 total_marks = round(total_marks, 1)
 
+            print(peer_marks)
             context = {
                 'current_sub': current_sub,
                 'files': submitted_files,
@@ -876,12 +889,14 @@ def cur_student_submission(request, submission_id):
                 'marks': round(marks, 1),
                 'ts_marks': ts_marks,
                 'tt_marks': tt_marks,
-                'teacher_marks': teacher_marks,
+                # 'teacher_marks': teacher_marks,
+                'teacher_marks': teacher_marks*100/t_ratio,
                 'total_marks': total_marks,
                 't_points': t_points,
                 'comments': comments,
                 'count': count,
                 'no_peers': no_peers,
+                'peer_marks': peer_marks,
             }
         else:
             if sub is not None:
@@ -893,9 +908,10 @@ def cur_student_submission(request, submission_id):
                 'files': submitted_files,
                 'submitted_link': submitted_link,
                 'marks': marks,
-                'teacher_marks': teacher_marks,
+                'teacher_marks': teacher_marks*100/t_ratio,
                 'tt_marks': current_assignment.points,
                 'comments': comments,
+                't_points': t_points,
                 # 'count': count,
                 # 'no_peers': no_peers,
             }
@@ -907,6 +923,7 @@ def cur_student_submission(request, submission_id):
             'submitted_link': submitted_link,
             'marks': marks,
             'comments': comments,
+            't_points': t_points,
             # 'count': count,
             # 'no_peers': no_peers,
         }

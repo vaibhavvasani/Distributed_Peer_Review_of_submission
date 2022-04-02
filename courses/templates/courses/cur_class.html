@@ -74,7 +74,7 @@
     .login-box .user-box input:valid~label {
       top: -20px;
       left: 0;
-      color: #03e9f4;
+      color: violet;
       font-size: 12px;
     }
 
@@ -90,7 +90,7 @@
       position: relative;
       display: inline-block;
       padding: 10px 20px;
-      color: #03e9f4;
+      color: #3218a8;
       font-size: 16px;
       text-decoration: none;
       text-transform: uppercase;
@@ -105,6 +105,57 @@
     .login-box a span {
       position: absolute;
       display: block;
+    }
+
+    * {
+      font-family: sans-serif;
+      /* Change your font family */
+    }
+
+    .content-table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      min-width: 400px;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .content-table thead tr {
+      background-color: #3218a8;
+      color: #ffffff;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .content-table th,
+    .content-table td {
+      padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+      border-bottom: 2px solid #3218a8;
+    }
+
+    .content-table tbody tr.active-row {
+      font-weight: bold;
+      color: #3218a8;
+    }
+
+    #button-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
@@ -285,6 +336,30 @@
             </form>
           </div>-->
         </div>
+        <div id="button-wrapper">
+          <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 40px auto;"
+            onclick="toggleStudents()">
+            Show students
+          </button>
+        </div>
+        <div id="table-container">
+          <table class="content-table" style="margin: 40px auto;">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in students %}
+              <tr>
+                <td>{{student.username}}</td>
+                <td>{{student.email}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
         <div>
           {% if messages %}
           {% for message in messages %}
@@ -360,7 +435,7 @@
       </div>
       <div class="user-box">
         <input type="number" min="0" max="100" name="tratio" id="teacher_ratio" required>
-        <label>Teacher Ratio</label>
+        <label>Teacher's Ratio</label>
       </div>
       <div class="user-box">
         <input type="number" min="1" max="{{total_students}}" name="no_of_peers" id="no_peers" required>
@@ -462,6 +537,20 @@
         }
       }
 
+    }
+
+
+    function toggleStudents() {
+      var button = document.getElementById("table-toggle");
+      var table = document.getElementById("table-container");
+
+      if (table.style.display === "none") {
+        table.style.display = "block";
+        button.innerHTML = "Hide Students";
+      } else {
+        table.style.display = "none";
+        button.innerHTML = "Show Students";
+      }
     }
   </script>
 
