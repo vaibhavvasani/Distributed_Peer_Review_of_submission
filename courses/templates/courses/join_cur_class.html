@@ -24,6 +24,21 @@
       .hover:hover {
         background-color:#2d3092 ;
       }
+      #review-peers{
+      color: rgb(109, 94, 94);
+      
+    }
+    #review-peers:hover{
+      color: rgb(29, 29, 216);
+      text-decoration:bold ;
+      font-weight: 600;
+    }
+    /* .size{
+      transform: all;
+    } */
+    .size:hover{
+      transform: scale(1.1);
+    }
     </style>
 </head>
 <body>
@@ -129,11 +144,13 @@
                     <span class="flaticon-web-design"></span></a>
                   </div>
                   <div style="text-align: center;" class="cat-cap">
-                    <h5 style="text-transform: uppercase; text-decoration: underline;"><a href="{% url 'cur_assignment_join' a.pk %}">{{a.assignment_name}}</a></h5>
+                    <h5 style="text-transform: uppercase; text-decoration: underline;" class="size"><a href="{% url 'cur_assignment_join' a.pk %}">{{a.assignment_name}}</a></h5>
                     <p style="margin-bottom: 17px;">Max Points: {{a.points}}</p>
                     <p style="margin-bottom: 15px;">Due: {{a.due_date}}</p>
                     {% if a.grading_type is False %}
-                    <a style="border-bottom: 1px solid" href="{% url 'peers_assigned' a.pk %}" class="read-more1"><span>To Review Peers <i class="fa fa-graduation-cap"></i>>></span></a>
+                    <button style="border: none;outline: none;">
+                         <a style="border-bottom: 1px solid" id="review-peers" href="{% url 'peers_assigned' a.pk %}" class="read-more1"><span>To Review Peers <i class="fa fa-graduation-cap"></i>>></span></a>
+                    </button>
                     {% endif %}
                   </div>
                 </div>

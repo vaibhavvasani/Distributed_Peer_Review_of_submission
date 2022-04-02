@@ -26,8 +26,8 @@ SECRET_KEY = 't3c=^mcb1ws_2c0_xt1^h^6ui(zwd888l9c8^p0y9(8w1s$v14'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -98,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "ppergradeview-system",
         'USER': "postgres",
-        'PASSWORD': "Password",
+        'PASSWORD': "0000",
         'HOST': "localhost",
         'PORT': "5432"
     }

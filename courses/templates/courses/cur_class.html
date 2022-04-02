@@ -34,7 +34,8 @@
       box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
       border-radius: 10px;
     }
-
+ 
+   
 
     .login-box h2 {
       margin: 0 0 30px;
@@ -157,6 +158,21 @@
       align-items: center;
       justify-content: center;
     }
+    #assign-peers{
+      color: rgb(109, 94, 94);
+      
+    }
+    #assign-peers:hover{
+      color: rgb(29, 29, 216);
+      text-decoration:bold ;
+      font-weight: 600;
+    }
+    .size:hover{
+      transform: scale(1.1);
+    }
+    /* button:hover a{
+      color: white
+    } */
   </style>
 </head>
 
@@ -380,12 +396,14 @@
                       <span class="flaticon-web-design"></span></a>
                   </div>
                   <div style="text-align: center;word-wrap: break-word;" class="cat-cap">
-                    <h5 style="text-transform: uppercase; text-decoration: underline;"><a
+                    <h5 style="text-transform: uppercase; text-decoration: underline;" class="size"><a
                         href="{% url 'cur_assignment_create' a.pk %}">{{a.assignment_name}}</a></h5>
                     <p style="margin-bottom: 17px;">Max Points: {{a.points}}</p>
                     <p style="margin-bottom: 15px;">Due: {{a.due_date}}</p>
                     {% if a.grading_type is False %}
-                    <a style="margin-bottom: 17px;" href="{% url 'assign_peers' a.pk class_id %}">Assign Peers</a>
+                    <button style="border: none;outline: none;">
+                        <a style="margin-bottom: 17px;" id="assign-peers"  href="{% url 'assign_peers' a.pk class_id %}">Assign Peers</a>
+                    </button>
                     {% endif %}
                     <!-- <a href="{% url 'cur_assignment_create' a.pk %}" class="read-more1"><span>Peers <i class="fa fa-graduation-cap"></i></span></a> -->
                   </div>
