@@ -1,4 +1,3 @@
-<!--Edited by Hussein/Nayan-->
 {% extends 'courses/nav.html' %}
 {% load static %}
 {% block content %}
@@ -167,49 +166,43 @@
 
 
 
-
-
-          {% if a.grading_type is False %}
-          <h4>Marks obtained by teacher: {{ teacher_marks }}/{{ tt_marks }}</h4>
-          <h4>Marks obtained by peer: {{ marks }}/{{ ts_marks }}
-            {% if total_marks %}
-            <h4>Total Marks: {{ total_marks }}/{{ t_points }}</h4>
-            {% endif %}
-            {% else %}
-            <h4>Marks obtained: {{ sub.marks }}/{{ a.points }}</h4>
-            {% endif %}
-        </div>
-        {% if files %}
-        <div class="col-sm-12 col-md-4">
-          <h4>Submitted Files:</h4>
-          {% for file in files %}
-          <h5>Download here: <a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
-          {% endfor %}
-        </div>
-        {% endif %}
-        <div class='comments' >
-          {% if sub %}
-          <form method="post" action="{% url 'cur_assignment_join' a.pk %}" class='commentform'>
-            {% csrf_token %}
-            <div style="display: flex;flex-direction: column;justify-content: space-between;align-items: center;margin-left: 15rem;">
-
-              <input type="text" name="comment" autocomplete="off" size="60" placeholder="Enter your comment here...">
-              <input type="hidden" name="act" value="2">
-              <input type="hidden" name="del_sub" value="0">
-              <br>
-              <button type="submit" style="background-color: #2f2586; margin: 10px;padding: 10px 10px;border-radius: 10%;border: none;outline: none;" onmouseover="this.style.background='blue'" onmouseout="this.style.background='#2f2586'">Post</button>
-            </div>
-          </form>
-          <div id="#tag_cloud">
-            <h2>Comments</h2>
-          {% for comment in comments %}
-          <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
-            {{comment.comment_date}}</p>
-          {% endfor %}
+        <!-- Marks Section -->
+        {% if a.grading_type is False %}
+        <h4>Marks obtained by teacher: {{ teacher_marks }}/{{ t_points }}</h4>
+        <h4>Marks obtained by peer: {{ marks }}/{{ t_points }}</h4>
+          {% if total_marks %}
+          <h4>Total Marks: {{ total_marks }}/{{ t_points }}</h4>
           {% endif %}
-          </div>
-          
-        </div>
+          {% else %}
+          <h4>Marks obtained: {{ sub.marks }}/{{ a.points }}</h4>
+        {% endif %}
+      </div>
+      {% if files %}
+      <div class="col-sm-12 col-md-4">
+        <h4>Submitted Files:</h4>
+        {% for file in files %}
+        <h5>Download here: <a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      
+      <!-------------------------------- Comment Section -------------------------------->
+      <div class='comments'>
+        {% if sub %}
+        <form method="post" action="{% url 'cur_assignment_join' a.pk %}" class='commentform'>
+          {% csrf_token %}
+          <input type="text" name="comment" autocomplete="off" size="60">
+          <input type="hidden" name="act" value="2">
+          <input type="hidden" name="del_sub" value="0">
+          <button type="submit" style="background-color: rgb(43, 41, 41);">Post</button>
+        </form>
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
+          {{comment.comment_date}}</p>
+        {% endfor %}
+        {% endif %}
       </div>
     </div>
   </body>

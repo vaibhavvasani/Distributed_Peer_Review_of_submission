@@ -484,16 +484,20 @@ def cur_assignment_join(request, assignment_id):
                         teacher_marks = round(teacher_marks, 1)
                     if total_marks is not None:
                         total_marks = round(total_marks, 1)
+                    if marks is not None:
+                        marks = marks*100/s_ratio
 
                     context = {
                         'a': current_assignment,
                         'sub': sub,
                         'files': sub_files,
                         'youtube_link': embed_url,
+                        #'marks': round(marks, 1)
                         'marks': round(marks, 1),
                         'ts_marks': ts_marks,
                         'tt_marks': tt_marks,
-                        'teacher_marks': teacher_marks,
+                        # 'teacher_marks': teacher_marks,
+                        'teacher_marks': teacher_marks*100/t_ratio,
                         'total_marks': total_marks,
                         't_points': t_points,
                         'comments': comments,
@@ -515,7 +519,7 @@ def cur_assignment_join(request, assignment_id):
                         'files': sub_files,
                         'youtube_link': embed_url,
                         'marks': marks,
-                        'teacher_marks': teacher_marks,
+                        'teacher_marks': teacher_marks*100/t_ratio,
                         'tt_marks': current_assignment.points,
                         'comments': comments,
                         'edit': edit,
