@@ -98,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "ppergradeview-system",
         'USER': "postgres",
-        'PASSWORD': "Password",
+        'PASSWORD': '0000',
         'HOST': "localhost",
         'PORT': "5432"
     }

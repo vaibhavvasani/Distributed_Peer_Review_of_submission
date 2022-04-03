@@ -1,6 +1,7 @@
 from ntpath import join
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.files.storage import FileSystemStorage
+from numpy import average
 from .forms import UserRegisterForm
 from .models import *
 from django.contrib import messages
@@ -492,12 +493,12 @@ def cur_assignment_join(request, assignment_id):
                         'sub': sub,
                         'files': sub_files,
                         'youtube_link': embed_url,
-                        #'marks': round(marks, 1)
+                        # 'marks': round(marks, 1)
                         'marks': round(marks, 1),
                         'ts_marks': ts_marks,
                         'tt_marks': tt_marks,
                         # 'teacher_marks': teacher_marks,
-                        'teacher_marks': teacher_marks*100/t_ratio,
+                        'teacher_marks': teacher_marks*100/t_ratio if teacher_marks is not None else None,
                         'total_marks': total_marks,
                         't_points': t_points,
                         'comments': comments,
@@ -519,7 +520,7 @@ def cur_assignment_join(request, assignment_id):
                         'files': sub_files,
                         'youtube_link': embed_url,
                         'marks': marks,
-                        'teacher_marks': teacher_marks*100/t_ratio,
+                        'teacher_marks': teacher_marks*100/t_ratio if teacher_marks is not None else None,
                         'tt_marks': current_assignment.points,
                         'comments': comments,
                         'edit': edit,
@@ -885,22 +886,34 @@ def cur_student_submission(request, submission_id):
             if total_marks is not None:
                 total_marks = round(total_marks, 1)
 
+            isNone = False
             print(peer_marks)
+            for marks in peer_marks:
+                if marks is None:
+                    isNone = True
+                    break
+
+            if isNone:
+                avg_peer_marks = None
+            else:
+                avg_peer_marks = round(average(avg_peer_marks), 1)
+
             context = {
                 'current_sub': current_sub,
                 'files': submitted_files,
                 'submitted_link': submitted_link,
-                'marks': round(marks, 1),
+                'marks': round(marks, 1) if marks is not None else None,
                 'ts_marks': ts_marks,
                 'tt_marks': tt_marks,
                 # 'teacher_marks': teacher_marks,
-                'teacher_marks': teacher_marks*100/t_ratio,
+                'teacher_marks': teacher_marks*100/t_ratio if teacher_marks is not None else None,
                 'total_marks': total_marks,
                 't_points': t_points,
                 'comments': comments,
                 'count': count,
                 'no_peers': no_peers,
                 'peer_marks': peer_marks,
+                'avg_peer_marks': avg_peer_marks,
             }
         else:
             if sub is not None:
@@ -912,7 +925,7 @@ def cur_student_submission(request, submission_id):
                 'files': submitted_files,
                 'submitted_link': submitted_link,
                 'marks': marks,
-                'teacher_marks': teacher_marks*100/t_ratio,
+                'teacher_marks': teacher_marks*100/t_ratio if teacher_marks is not None else None,
                 'tt_marks': current_assignment.points,
                 'comments': comments,
                 't_points': t_points,
