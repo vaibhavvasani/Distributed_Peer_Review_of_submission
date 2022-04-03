@@ -93,7 +93,9 @@
     </div>
     <!-- Header End -->
   </header>
-
+  <div class="container-fluid">
+      <div class="row-content row">
+        <div class="offset-md-2 col-md-12 col-md-8 ">
             <div class="col-md-8">
                 <h5>Question 1: Mention 1 thing that could be improved. </h5>
                     {% for peer in peers %}
@@ -105,12 +107,16 @@
                     {% for peer in peers %}
                 <p>Feedback : {{ peer.question2 }}</p>
                 {% endfor %}
-            </div>            <div class="col-md-8">
+            </div>           
+            <div class="col-md-8">
                 <h5>Question 3: Mention any one thing that you learnt. </h5>
                 {% for peer in peers %}
                 <p>Feedback : {{ peer.question3 }}</p>
                 {% endfor %}
             </div>
+          </div>
+          </div>
+      </div>
 
 
 
