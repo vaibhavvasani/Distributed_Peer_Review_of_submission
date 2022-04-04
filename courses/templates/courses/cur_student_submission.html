@@ -174,34 +174,7 @@
       </div>
       <div class="col-sm-12 col-md-6">
         <div class="container-fluid">
-          <div id="button-wrapper">
-            <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 40px auto;"
-              onclick="togglePeers()">
-              Show Peer Marks
-            </button>
-          </div>
-          <div id="table-container" style="display: none;">
-            <table class="content-table" style="margin: 40px auto;">
-              <thead>
-                <tr>
-                  <th>Peer No</th>
-                  <th>Marks Out of 20</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for m in peer_marks %}
-                <tr>
-                  <td>{{forloop.counter}}</td>
-                  {% if m is None %}
-                  <td>Not graded</td>
-                  {% else %}
-                  <td>{{m}}</td>
-                  {% endif %}
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+          
           <div class="row-content row" style="display:flex; justify-content: space-between; align-items: center;">
             <div class="col-sm-12 col-md-4" style="margin: 0 auto; padding: 10px;">
               <div class="tmarks"
@@ -305,6 +278,35 @@
             </div>
           </div>
 
+          <div id="button-wrapper">
+            <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 40px auto;"
+              onclick="togglePeers()">
+              Show Peer Marks
+            </button>
+          </div>
+          <div id="table-container" style="display: none;">
+            <table class="content-table" style="margin: 40px auto;">
+              <thead>
+                <tr>
+                  <th>Peer No</th>
+                  <th>Marks Out of 20</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for m in peer_marks %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  {% if m is None %}
+                  <td>Not graded</td>
+                  {% else %}
+                  <td>{{m}}</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
         </div>
 
       </div>
@@ -324,15 +326,13 @@
             {% csrf_token %}
             <div
               style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-left: 20rem;">
-              <h2 style="margin: 10px;">Comment</h2>
+              <h4 style="margin: 10px;">Comment</h4>
               <input type="text" name="comment" autocomplete="off" size="60" style="margin: 10px;"
                 placeholder="Enter your comment here...">
               <button type="submit"
                 style="background-color: #2f2586; margin: 10px;padding: 10px 10px;border-radius: 10%;border: none;outline: none;"
-                onmouseover="this.style.background='blue'" onmouseout="this.style.background='#2f2586'">Post</button>
+                onmouseover="this.style.background='blue'" onmouseout="this.style.background='#2f2586'" >Post</button>
             </div>
-
-
 
           </form>
         </div>

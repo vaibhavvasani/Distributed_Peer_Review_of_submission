@@ -845,6 +845,7 @@ def cur_student_submission(request, submission_id):
 
     if current_assignment.grading_type is False:
         peer_marks = []
+        #avg_peer_marks=None
 
         marks = 0
         total_marks = None
@@ -896,7 +897,7 @@ def cur_student_submission(request, submission_id):
             if isNone:
                 avg_peer_marks = None
             else:
-                avg_peer_marks = round(average(avg_peer_marks), 1)
+                avg_peer_marks = round(average(peer_marks), 1)
 
             context = {
                 'current_sub': current_sub,
