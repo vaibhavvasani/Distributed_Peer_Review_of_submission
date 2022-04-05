@@ -845,7 +845,7 @@ def cur_student_submission(request, submission_id):
 
     if current_assignment.grading_type is False:
         peer_marks = []
-        #avg_peer_marks=None
+        # avg_peer_marks=None
 
         marks = 0
         total_marks = None
@@ -916,6 +916,7 @@ def cur_student_submission(request, submission_id):
                 'peer_marks': peer_marks,
                 'avg_peer_marks': avg_peer_marks,
             }
+            # print(teacher_marks)
         else:
             if sub is not None:
                 if sub.marks is not None:
@@ -933,6 +934,7 @@ def cur_student_submission(request, submission_id):
                 # 'count': count,
                 # 'no_peers': no_peers,
             }
+            # print(teacher_marks)
     else:
         marks = "No peergrading"
         context = {
@@ -945,6 +947,7 @@ def cur_student_submission(request, submission_id):
             # 'count': count,
             # 'no_peers': no_peers,
         }
+
     return render(request, 'courses/cur_student_submission.html', context)
 
 
