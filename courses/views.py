@@ -11,7 +11,7 @@ from django.utils import timezone
 import random
 from datetime import datetime
 from django.forms.models import model_to_dict
-
+import csv
 
 # Create your views here.
 
@@ -1023,6 +1023,27 @@ def cur_notice(request, notice_id):
 
     return render(request, 'courses/cur_notice.html', context)
 
+# Marksheet
+def marksheet(request):
+    response=HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=marksheet.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+    variable=[]
+    for i in range(1,Assignments.no_of_peers):
+        variable.append("Peer "+str(i))
+    #Designate the Model
+    assignment=Assignments.objects.all()
+    students = JoinedClasses.objects.all()
+    # Add column headings to the csv file
+    writer.writerow(['Student Email']+variable+['Teacher Marks', 'Average Marks'])
+
+    # Loop Thu and output
+    for st in students:
+        writer.writerow([students.email, students.peer, ])
+
+    return response
 
 '''
 @login_required

@@ -106,3 +106,4 @@ class Comments(models.Model):
     text = models.TextField(max_length=1000, blank=True)
     comment_date = models.DateTimeField(default=timezone.now)
     comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
+
