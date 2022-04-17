@@ -4,243 +4,190 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>Peer2Peer-Grading: {{ cur_sub.student.username }}</title>
-    <style>
-      .margin {
-        margin-top: 35px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Peer2Peer-Grading: {{ cur_sub.student.username }}</title>
+  <style>
+    .margin {
+      margin-top: 35px;
+    }
 
-      .radius {
-        border-radius: 10px;
-        /*margin-top: 35px;*/
-        padding: 20px 24px;
-      }
+    .radius {
+      border-radius: 10px;
+      /*margin-top: 35px;*/
+      padding: 20px 24px;
+    }
 
-      .underline {
-        border-top-style: hidden;
-        border-right-style: hidden;
-        border-left-style: hidden;
-        border-bottom-style: groove;
-        background-color: #ffffff;
-        height: 45px;
-        margin-right: 20px;
-        margin-bottom: 20px;
-        font-family: "Lucida Console", Courier, monospace;
-        width: 100px;
+    .underline {
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: groove;
+      background-color: #ffffff;
+      height: 45px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      font-family: "Lucida Console", Courier, monospace;
+      width: 100px;
 
-      }
+    }
 
-      a:hover {
-        color: #7300ff;
-      }
+    a:hover {
+      color: #7300ff;
+    }
 
-      .comments {
-        position: relative;
-        width: 50%;
-      }
+    .comments {
+      position: relative;
+      width: 50%;
+    }
 
-      .comments p:nth-child(even) {
-        width: 100%;
-        height: auto;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 10px;
-        color: black;
-      }
+    .comments p:nth-child(even) {
+      width: 100%;
+      height: auto;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      color: black;
+    }
 
-      .comments p:nth-child(odd) {
-        width: 100%;
-        height: auto;
-        background-color: rgba(17, 6, 3, 0.39);
-        border-radius: 10px;
-        color: white;
-      }
+    .comments p:nth-child(odd) {
+      width: 100%;
+      height: auto;
+      background-color: rgba(17, 6, 3, 0.39);
+      border-radius: 10px;
+      color: white;
+    }
 
-      .commentform {
-        position: relative;
-        left: 5%;
-        width: 60%;
-      }
+    .commentform {
+      position: relative;
+      left: 5%;
+      width: 60%;
+    }
 
-      .content-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        min-width: 400px;
-        border-radius: 5px 5px 0 0;
-        overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      }
+    .content-table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      min-width: 400px;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
 
-      .content-table thead tr {
-        background-color: #7627bb;
-        color: #ffffff;
-        text-align: left;
-        font-weight: bold;
-      }
+    .content-table thead tr {
+      background-color: #7627bb;
+      color: #ffffff;
+      text-align: left;
+      font-weight: bold;
+    }
 
-      .content-table th,
-      .content-table td {
-        padding: 12px 15px;
-      }
+    .content-table th,
+    .content-table td {
+      padding: 12px 15px;
+    }
 
-      .content-table tbody tr {
-        border-bottom: 1px solid #dddddd;
-      }
+    .content-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
 
-      .content-table tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
-      }
+    .content-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
 
-      .content-table tbody tr:last-of-type {
-        border-bottom: 2px solid #7627bb;
-      }
+    .content-table tbody tr:last-of-type {
+      border-bottom: 2px solid #7627bb;
+    }
 
-      .content-table tbody tr.active-row {
-        font-weight: bold;
-        color: #7627bb;
-      }
+    .content-table tbody tr.active-row {
+      font-weight: bold;
+      color: #7627bb;
+    }
 
-      #button-wrapper {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    #button-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
 
-      /* .markstp {
+    /* .markstp {
       position: relative;
     } */
 
-      /* .tmarks {
+    /* .tmarks {
       position: absolute;
       left: 80%;
     } */
 
-      .pmarks {
-        /* position: absolute;
+    .pmarks {
+      /* position: absolute;
       left: 55%; */
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 200px;
-      }
+      overflow-y: scroll;
+      overflow-x: hidden;
+      height: 200px;
+    }
 
-      .submitfiles {
-        left: 10%;
-        position: relative;
-        margin-top: 15%;
-      }
+    .submitfiles {
+      left: 10%;
+      position: relative;
+      margin-top: 15%;
+    }
 
-      /* .totalmarks {
+    /* .totalmarks {
       position: relative;
       left: 30%;
     } */
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
-    <div class="container-fluid">
-      <div style="position: relative;top: -1.5rem;" class="row-content row">
-        <div class="col-sm-12 col-md-12 text-center">
-          <div style="display: flex;justify-content: space-around;">
-            <h4>Student : {{ current_sub.student.username }}</h4>
-            <h5>Max Marks: {{ t_points }}</h5>
-          </div>
-
-
+<body>
+  <div class="container-fluid">
+    <div style="position: relative;top: -1.5rem;" class="row-content row">
+      <div class="col-sm-12 col-md-12 text-center">
+        <div style="display: flex;justify-content: space-around;">
+          <h4>Student : {{ current_sub.student.username }}</h4>
+          <h5>Max Marks: {{ t_points }}</h5>
         </div>
+
+
       </div>
-      <hr style="border: 1px solid gray; width: 100%;position: relative;top: -50px;">
+    </div>
+    <hr style="border: 1px solid gray; width: 100%;position: relative;top: -50px;">
 
-      <div class="row-content row">
-
-
-        <div class="col-sm-12 col-md-6"
-          style="flex-direction: column; display: flex; align-items: center; justify-content: flex-start;">
-          {% if submitted_link %}
-          <h4 style="padding-bottom: 20px;">Submitted Video:</h4>
-          <iframe src="{{submitted_link}}" width="500" height="300" allowfullscreen="allowfullscreen"></iframe>
-          {% endif %}
+    <div class="row-content row">
 
 
-        </div>
-        <div class="col-sm-12 col-md-6">
-          <div class="container-fluid">
+      <div class="col-sm-12 col-md-6"
+        style="flex-direction: column; display: flex; align-items: center; justify-content: flex-start;">
+        {% if submitted_link %}
+        <h4 style="padding-bottom: 20px;">Submitted Video:</h4>
+        <iframe src="{{submitted_link}}" width="500" height="300" allowfullscreen="allowfullscreen"></iframe>
+        {% endif %}
 
-            <div class="row-content row" style="display:flex; justify-content: space-between; align-items: center;">
-              <div class="col-sm-12 col-md-4" style="margin: 0 auto; padding: 10px;">
-                <div class="tmarks"
-                  style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                  <h4> Average Peer</h4>
-                  <div aria-hidden=" true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
-                    <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
-                      style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
-                      <tbody>
-                        <tr>
-                          <td rowspan="2" width="16px"></td>
-                          <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
 
-                            {% if avg_peer_marks is None %}
-                            -
-                            {% else %}
-                            {{avg_peer_marks}}
-                            {% endif %}
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="container-fluid">
 
-                          </td>
-                          <td rowspan="2" width="16px"></td>
-                        </tr>
-                        <tr>
-                          <td style="padding-top:4px;vertical-align:top">{{ t_points }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-sm-12 col-md-4" style="padding: 10px;">
-                <div class="tmarks"
-                  style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                  <h4> Teacher</h4>
-                  <div aria-hidden=" true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
-                    <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
-                      style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
-                      <tbody>
-                        <tr>
-                          <td rowspan="2" width="16px"></td>
-                          <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
-                            <!-- {{teacher_marks }} -->
-                            {% if teacher_marks is None %}
-                            -
-                            {% else %}
-                            {{teacher_marks}}
-                            {% endif %}
-                          </td>
-                          <td rowspan="2" width="16px"></td>
-                        </tr>
-                        <tr>
-                          <td style="padding-top:4px;vertical-align:top">{{ t_points }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-12 col-md-4"
-                style="padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                {% if total_marks %}
-                <h4>Total marks</h4>
-                <div aria-hidden="true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
+          <div class="row-content row" style="display:flex; justify-content: space-between; align-items: center;">
+            <div class="col-sm-12 col-md-4" style="margin: 0 auto; padding: 10px;">
+              <div class="tmarks"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h4> Average Peer</h4>
+                <div aria-hidden=" true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
                   <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
                     style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
                     <tbody>
                       <tr>
                         <td rowspan="2" width="16px"></td>
                         <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
-                          {{ total_marks }}
+
+                          {% if avg_peer_marks is None %}
+                          -
+                          {% else %}
+                          {{avg_peer_marks}}
+                          {% endif %}
+
                         </td>
                         <td rowspan="2" width="16px"></td>
                       </tr>
@@ -248,73 +195,126 @@
                         <td style="padding-top:4px;vertical-align:top">{{ t_points }}</td>
                       </tr>
                     </tbody>
-
                   </table>
                 </div>
-                {% else %}
+              </div>
 
-                <h4>Marks obtained</h4>
-                <div aria-hidden="true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
+            </div>
+            <div class="col-sm-12 col-md-4" style="padding: 10px;">
+              <div class="tmarks"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h4> Teacher</h4>
+                <div aria-hidden=" true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
                   <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
                     style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
                     <tbody>
                       <tr>
                         <td rowspan="2" width="16px"></td>
                         <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
-                          {{current_sub.marks }}</td>
+                          <!-- {{teacher_marks }} -->
+                          {% if teacher_marks is None %}
+                          -
+                          {% else %}
+                          {{teacher_marks}}
+                          {% endif %}
+                        </td>
                         <td rowspan="2" width="16px"></td>
                       </tr>
                       <tr>
-                        <td style="padding-top:4px;vertical-align:top">{{ current_sub.assignment_id.points }}</td>
+                        <td style="padding-top:4px;vertical-align:top">{{ t_points }}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-
-                {% endif %}
-              </div>
-
-            </div>
-            <div class="row-content row" style="display:flex; justify-content: space-between; align-items: center;">
-              <div class="col-sm-12 col-md-12" style="margin: 0 auto; padding: 10px;">
-
-                <form method="post" action="{% url 'cur_assignment_create' current_sub.assignment_id.pk  %}">
-                  {% csrf_token %}
-                  <div style="display: flex;align-items: center;justify-content: center;">
-                    <input type="number" class="underline" placeholder="Marks" name="marks" min="0"
-                      max="{{current_sub.assignment_id.points}}" autocomplete="off">
-                    <input type="hidden" name="cur_sub" value="{{current_sub.pk}}">
-                    <button class="btn btn-warning radius" type="submit">Save</button>
-                  </div>
-                </form>
-
-              </div>
-            </div>
-            <div class="row-content row">
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <form method="post" action="{% url 'cur_student_submission' current_sub.pk %}" class="commentform"
-                  style="display: flex; flex-direction: row;">
-                  {% csrf_token %}
-                  <div style="display: flex;justify-content: center;align-items: center">
-                    <h4 style="margin: 10px;">Comment</h4>
-                    <input type="text" name="comment" autocomplete="off" size="40" style="margin: 10px;"
-                      placeholder="Enter your comment here...">
-                    <button type="submit"
-                      style="background-color: #2f2586; margin: 10px;padding: 10px 10px;border-radius: 10%;border: none;outline: none;"
-                      onmouseover="this.style.background='blue'"
-                      onmouseout="this.style.background='#2f2586'">Post</button>
-                  </div>
-
-                </form>
               </div>
             </div>
 
+            <div class="col-sm-12 col-md-4"
+              style="padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              {% if total_marks %}
+              <h4>Total marks</h4>
+              <div aria-hidden="true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
+                <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
+                  style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
+                  <tbody>
+                    <tr>
+                      <td rowspan="2" width="16px"></td>
+                      <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
+                        {{ total_marks }}
+                      </td>
+                      <td rowspan="2" width="16px"></td>
+                    </tr>
+                    <tr>
+                      <td style="padding-top:4px;vertical-align:top">{{ t_points }}</td>
+                    </tr>
+                  </tbody>
 
+                </table>
+              </div>
+              {% else %}
+
+              <h4>Marks obtained</h4>
+              <div aria-hidden="true" style="border-radius:50%;background-color:#7627bb;height:72px;width:72px">
+                <table border="0" cellpadding="0" cellspacing="0" height="72px" role="presentation"
+                  style="color:#ffffff;font-size:16px;font-weight:400;text-align:center" width="72px">
+                  <tbody>
+                    <tr>
+                      <td rowspan="2" width="16px"></td>
+                      <td style="border-bottom:1px solid #ffffff;padding-bottom:4px;vertical-align:bottom">
+                        {{current_sub.marks }}</td>
+                      <td rowspan="2" width="16px"></td>
+                    </tr>
+                    <tr>
+                      <td style="padding-top:4px;vertical-align:top">{{ current_sub.assignment_id.points }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {% endif %}
+            </div>
 
           </div>
+          <div class="row-content row" style="display:flex; justify-content: space-between; align-items: center;">
+            <div class="col-sm-12 col-md-12" style="margin: 0 auto; padding: 10px;">
+
+              <form method="post" action="{% url 'cur_assignment_create' current_sub.assignment_id.pk  %}">
+                {% csrf_token %}
+                <div style="display: flex;align-items: center;justify-content: center;">
+                  <input type="number" class="underline" placeholder="Marks" name="marks" min="0"
+                    max="{{current_sub.assignment_id.points}}" autocomplete="off">
+                  <input type="hidden" name="cur_sub" value="{{current_sub.pk}}">
+                  <button class="btn btn-warning radius" type="submit">Save</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+          <div class="row-content row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <form method="post" action="{% url 'cur_student_submission' current_sub.pk %}" class="commentform"
+                style="display: flex; flex-direction: row;">
+                {% csrf_token %}
+                <div style="display: flex;justify-content: center;align-items: center">
+                  <h4 style="margin: 10px;">Comment</h4>
+                  <input type="text" name="comment" autocomplete="off" size="40" style="margin: 10px;"
+                    placeholder="Enter your comment here...">
+                  <button type="submit"
+                    style="background-color: #2f2586; margin: 10px;padding: 10px 10px;border-radius: 10%;border: none;outline: none;"
+                    onmouseover="this.style.background='blue'"
+                    onmouseout="this.style.background='#2f2586'">Post</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+
 
         </div>
-        <!-- {% if files %}
+
+      </div>
+      <!-- {% if files %}
       <div class="col-sm-12 col-md-4 submitfiles">
         <h4>Submitted Files:</h4>
         {% for file in files %}
@@ -325,213 +325,212 @@
 
 
 
-      </div>
     </div>
-    <div class="row-content-row">
-      <div class="col-sm-12 col-md-12">
-        <div id="button-wrapper">
-          <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 40px auto;"
-            onclick="togglePeers()">
-            Show Peer Marks
-          </button>
-        </div>
-        <div id="table-container" style="display: none;">
-          <table class="content-table" style="margin: 40px auto;">
-            <thead>
-              <tr>
-                <th>Peer No</th>
-                <th>Marks Out of 20</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for m in peer_marks %}
-              <tr>
-                <td>{{forloop.counter}}</td>
-                {% if m is None %}
-                <td>Not graded</td>
-                {% else %}
-                <td>{{m}}</td>
-                {% endif %}
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <div class="row-content-row">
+    <div class="col-sm-12 col-md-12">
+      <div id="button-wrapper">
+        <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 40px auto;"
+          onclick="togglePeers()">
+          Show Peer Marks
+        </button>
       </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row row-content">
-        <div class="offset-md-1 col-12 col-md-12 col-lg-12">
-          <div class="comments" id="#tag_cloud">
-            <br>
-            {% for comment in comments %}
-            <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
-              {{comment.comment_date}}</p>
+      <div id="table-container" style="display: none;">
+        <table class="content-table" style="margin: 40px auto;">
+          <thead>
+            <tr>
+              <th>Peer No</th>
+              <th>Marks Out of 20</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in peer_marks %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              {% if m is None %}
+              <td>Not graded</td>
+              {% else %}
+              <td>{{m}}</td>
+              {% endif %}
+            </tr>
             {% endfor %}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
-
-
-  </body>
-  <script>
-    function togglePeers() {
-      var button = document.getElementById("table-toggle");
-      var table = document.getElementById("table-container");
-
-      if (table.style.display === "none") {
-        table.style.display = "block";
-        button.innerHTML = "Hide Peer Marks";
-      } else {
-        table.style.display = "none";
-        button.innerHTML = "Show Peer Marks";
-      }
-    }
-  </script>
-
-
-
-  <footer style="margin-top: 50px;">
-    <!--------------------------------COPY START  ---------------------------------->
-
-    <div class="footer-area footer-bg">
-      <div class="container">
-        <div class="footer-top footer-padding">
-          <!-- footer Heading -->
-          <div class="footer-heading">
-            <div class="row justify-content-between">
-              <div class="col-xl-6 col-lg-7 col-md-10">
-                <div class="footer-tittle2">
-                  <h4>Stay Updated</h4>
-                </div>
-                <!-- Form -->
-                <div class="footer-form mb-50">
-                  <div id="mc_embed_signup">
-                    <form target="_blank"
-                      action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                      method="get" class="subscribe_form relative mail_part" novalidate="true">
-                      <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address "
-                        class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Your email address'" />
-                      <div class="form-icon">
-                        <button type="submit" name="submit" id="newsletter-submit"
-                          class="email_icon newsletter-submit button-contactForm">
-                          Subscribe Now
-                        </button>
-                      </div>
-                      <div class="mt-10 info"></div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-5 col-lg-5">
-                <div class="footer-tittle2">
-                  <h4>Let’s Get Social</h4>
-                </div>
-                <!-- Footer Social -->
-                <div class="footer-social">
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-google"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Footer Menu -->
-
-          <div class="media contact-info" style="float: left;margin-right: 120px;">
-            <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
-            <div class="media-body ">
-              <h3 style="color: white;">K. J. Somaiya College of Engineering<br /><span
-                  style="margin-left: 45px;">Mumbai,
-                  400077<span></h3>
-
-            </div>
-          </div>
-          <div class="media contact-info" style="float: left;margin-right:190px; ">
-            <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
-            <div class="media-body">
-              <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
-
-            </div>
-          </div>
-          <div class="media contact-info">
-            <span class="contact-info__icon"><i class="ti-email"></i></span>
-            <div class="media-body">
-              <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
-
-            </div>
-          </div>
-
-
-
-        </div>
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-          <div class="row d-flex align-items-center">
-            <div class="col-lg-12">
-              <div class="footer-copy-right text-center">
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Footer End-->
-  </footer>
-  <!-- Scroll Up -->
-  <div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
   </div>
 
-  <!-- JS here -->
-  <script>
-    $('#tag_cloud').load(' #tag_cloud', function () {
-      $(this).children().unwrap()
-    })
-  </script>
+  <div class="container-fluid">
+    <div class="row row-content">
+      <div class="offset-md-1 col-12 col-md-12 col-lg-12">
+        <div class="comments" id="#tag_cloud">
+          <br>
+          {% for comment in comments %}
+          <p>{{ comment.comment_user.username }} : <br>{{comment.text}}<br>
+            {{comment.comment_date}}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-  <!-- Jquery, Popper, Bootstrap -->
-  <script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-  <script src="{% static './assets/js/popper.min.js' %}"></script>
-  <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
-  <!-- Jquery Mobile Menu -->
-  <script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
 
-  <!-- Jquery Slick , Owl-Carousel Plugins -->
-  <script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
-  <script src="{% static './assets/js/slick.min.js' %}"></script>
-  <!-- One Page, Animated-HeadLin -->
-  <script src="{% static './assets/js/wow.min.js' %}"></script>
-  <script src="{% static './assets/js/animated.headline.js' %}"></script>
-  <script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+</body>
+<script>
+  function togglePeers() {
+    var button = document.getElementById("table-toggle");
+    var table = document.getElementById("table-container");
 
-  <!-- Date Picker -->
-  <script src="{% static './assets/js/gijgo.min.js' %}"></script>
-  <!-- Nice-select, sticky -->
-  <script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
-  <script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+    if (table.style.display === "none") {
+      table.style.display = "block";
+      button.innerHTML = "Hide Peer Marks";
+    } else {
+      table.style.display = "none";
+      button.innerHTML = "Show Peer Marks";
+    }
+  }
+</script>
 
-  <!-- counter , waypoint -->
-  <script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
-  <script src="{% static './assets/js/waypoints.min.js' %}"></script>
 
-  <!-- contact js -->
-  <script src="{% static './assets/js/contact.js' %}"></script>
-  <script src="{% static './assets/js/jquery.form.js' %}"></script>
-  <script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
-  <script src="{% static './assets/js/mail-script.js' %}"></script>
-  <script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
 
-  <!-- Jquery Plugins, main Jquery -->
-  <script src="{% static './assets/js/plugins.js' %}"></script>
-  <script src="{% static './assets/js/main.js' %}"></script>
+<footer style="margin-top: 50px;">
+  <!--------------------------------COPY START  ---------------------------------->
+
+  <div class="footer-area footer-bg">
+    <div class="container">
+      <div class="footer-top footer-padding">
+        <!-- footer Heading -->
+        <div class="footer-heading">
+          <div class="row justify-content-between">
+            <div class="col-xl-6 col-lg-7 col-md-10">
+              <div class="footer-tittle2">
+                <h4>Stay Updated</h4>
+              </div>
+              <!-- Form -->
+              <div class="footer-form mb-50">
+                <div id="mc_embed_signup">
+                  <form target="_blank"
+                    action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                    method="get" class="subscribe_form relative mail_part" novalidate="true">
+                    <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address "
+                      class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
+                      onblur="this.placeholder = 'Your email address'" />
+                    <div class="form-icon">
+                      <button type="submit" name="submit" id="newsletter-submit"
+                        class="email_icon newsletter-submit button-contactForm">
+                        Subscribe Now
+                      </button>
+                    </div>
+                    <div class="mt-10 info"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5">
+              <div class="footer-tittle2">
+                <h4>Let’s Get Social</h4>
+              </div>
+              <!-- Footer Social -->
+              <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer Menu -->
+
+        <div class="media contact-info" style="float: left;margin-right: 120px;">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
+          <div class="media-body ">
+            <h3 style="color: white;">K. J. Somaiya College of Engineering<br /><span style="margin-left: 45px;">Mumbai,
+                400077<span></h3>
+
+          </div>
+        </div>
+        <div class="media contact-info" style="float: left;margin-right:190px; ">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
+
+          </div>
+        </div>
+        <div class="media contact-info">
+          <span class="contact-info__icon"><i class="ti-email"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
+
+          </div>
+        </div>
+
+
+
+      </div>
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="row d-flex align-items-center">
+          <div class="col-lg-12">
+            <div class="footer-copy-right text-center">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End-->
+</footer>
+<!-- Scroll Up -->
+<div id="back-top">
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+<script>
+  $('#tag_cloud').load(' #tag_cloud', function () {
+    $(this).children().unwrap()
+  })
+</script>
+
+<script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static './assets/js/popper.min.js' %}"></script>
+<script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static './assets/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static './assets/js/wow.min.js' %}"></script>
+<script src="{% static './assets/js/animated.headline.js' %}"></script>
+<script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static './assets/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint -->
+<script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static './assets/js/waypoints.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static './assets/js/contact.js' %}"></script>
+<script src="{% static './assets/js/jquery.form.js' %}"></script>
+<script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
+<script src="{% static './assets/js/mail-script.js' %}"></script>
+<script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="{% static './assets/js/plugins.js' %}"></script>
+<script src="{% static './assets/js/main.js' %}"></script>
 
 
 </html>
