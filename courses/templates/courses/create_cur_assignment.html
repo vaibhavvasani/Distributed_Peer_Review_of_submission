@@ -111,7 +111,8 @@
     <form method="post" action="{% url 'cur_assignment_gradesheet' assignment_id  %}">
       {% csrf_token %}
       <div style="text-align: center; margin: 40px;">
-        <button class="btn btn-warning radius" type="submit" style="margin: auto;">View Grades</button>
+        <button class="btn btn-warning radius" type="submit" style="margin: auto;">View Grades <i class="fa fa-eye"
+            style="color: white; padding-left:10px;"></i></button>
       </div>
     </form>
 

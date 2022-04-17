@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>GradeSheet for {{ assignment.assignment_name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * {
             font-family: "Sen", sans-serif;
@@ -69,21 +70,48 @@
         a:hover {
             color: #7300ff;
         }
-
-        #button-wrapper {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     </style>
+    <script type="text/javascript">
+        function exportTableToExcel(tableID, filename = '') {
+            var filename = "{{class}}" + "_" + "{{assignment}}" + "_marksheet";
+            var downloadLink;
+            var dataType = 'application/vnd.ms-excel';
+            var tableSelect = document.getElementById(tableID);
+            console.log(tableSelect)
+            var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+            // Specify file name
+            filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+            // Create download link element
+            downloadLink = document.createElement("a");
+
+            document.body.appendChild(downloadLink);
+
+            if (navigator.msSaveOrOpenBlob) {
+                var blob = new Blob(['\ufeff', tableHTML], {
+                    type: dataType
+                });
+                navigator.msSaveOrOpenBlob(blob, filename);
+            } else {
+                // Create a link to the file
+                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+                // Setting the file name
+                downloadLink.download = filename;
+
+                //triggering the function
+                downloadLink.click();
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row-content row">
             <div class="offset-md-1 col-sm-12 col-md-10">
-                <table style="text-align: center;">
+                <table style="text-align: center;" id="tblData">
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
@@ -142,7 +170,14 @@
                 </table>
             </div>
         </div>
-    </div>
+        <div class="row-content row">
+            <div class="col-sm-12 col-md-10"></div>
+            <button id="table-toggle" class="btn btn-secondary " type="button" style="margin: 50px auto;"
+                onclick="exportTableToExcel('tblData')">
+                Download GradeSheet <i class="fa fa-download" style="color: white; padding-left:10px;"></i>
+            </button>
+        </div>
+
 </body>
 <footer style="margin-top: 50px;">
     <!--------------------------------COPY START  ---------------------------------->
@@ -281,6 +316,7 @@
 <!-- Jquery Plugins, main Jquery -->
 <script src="{% static './assets/js/plugins.js' %}"></script>
 <script src="{% static './assets/js/main.js' %}"></script>
+
 
 </html>
 {% endblock %}
