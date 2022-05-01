@@ -802,7 +802,9 @@ def cur_assignment_gradesheet(request, assignment_id):
         for i, student in enumerate(students_list):
             try:
                 current_sub = Submission.objects.get(
-                    student=student)
+                    assignment_id=current_assignment, student=student)
+                print("Before Current Sub")
+                print(current_sub)
             except Submission.DoesNotExist:
                 current_sub = None
 
