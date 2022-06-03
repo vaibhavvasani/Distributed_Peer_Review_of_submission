@@ -191,7 +191,7 @@ def cur_class(request, class_id):
                 notice.append(n)
         total_students = len(
             JoinedClasses.objects.filter(class_id=current)) - 1
-
+        student_ratio=Assignments.objects.filter(class_id=current).first().student_ratio
         students = JoinedClasses.objects.filter(
             class_id=current).values('student')
         students_list = [User.objects.get(id=c['student'])
@@ -844,7 +844,8 @@ def cur_assignment_gradesheet(request, assignment_id):
                     assignment_id=current_assignment).first()
 
                 s_ratio = current_assignment.student_ratio
-
+                t_ratio = current_assignment.teacher_ratio
+                
                 if current_assignment.grading_type is False:
                     peer_marks = []
                     marks = 0
@@ -878,12 +879,14 @@ def cur_assignment_gradesheet(request, assignment_id):
                                 marks = float(marks)/count
                                 marks = marks*(s_ratio/100)
                                 if teacher_marks is not None:
-                                    total_marks = teacher_marks+marks
+                                    total_marks = (teacher_marks*(t_ratio/100))+marks
+                        print(marks)
 
                         if teacher_marks is not None:
                             teacher_marks = round(teacher_marks, 1)
                         if total_marks is not None:
                             total_marks = round(total_marks, 1)
+                        print(total_marks)
 
                         isNone = False
                         print(peer_marks)
@@ -896,6 +899,7 @@ def cur_assignment_gradesheet(request, assignment_id):
                             avg_peer_marks = None
                         else:
                             avg_peer_marks = round(average(peer_marks), 1)
+                        print(avg_peer_marks)
 
                         context = {
                             'username': student.username,
@@ -970,6 +974,7 @@ def cur_assignment_create(request, assignment_id):
         pk=current_assignment.class_id.pk).first()
     all_class = CreatedClasses.objects.filter(
         class_code=created_class.class_code)
+    teacher_ratio = current_assignment.teacher_ratio
     flag = 0
     for c in all_class:
         if c.teacher.username == request.user.username:
@@ -989,6 +994,7 @@ def cur_assignment_create(request, assignment_id):
             'assignment': current_assignment,
             'submissions': submission_list,
             'assignment_id': assignment_id,
+            'teacher_ratio': teacher_ratio,
         }
         return render(request, 'courses/create_cur_assignment.html', context)
     else:
