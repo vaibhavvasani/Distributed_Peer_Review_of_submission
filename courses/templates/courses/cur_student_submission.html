@@ -163,6 +163,11 @@
         <h4 style="padding-bottom: 20px;">Submitted Video:</h4>
         <iframe src="{{submitted_link}}" width="500" height="300" allowfullscreen="allowfullscreen"></iframe>
         {% endif %}
+        {% if submitted_doc_link %}
+          <h4>Submitted File:</h4>
+          <a href="{{submitted_doc_link}}" target="_blank" style="color: #2f2586; font-size: large;">Click here</a> to view file.<br><br>
+          <!-- <iframe src="{{doc_link}}" width="600" height="600" allowfullscreen="allowfullscreen"></iframe> -->
+        {% endif %}  
 
 
       </div>

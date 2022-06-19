@@ -52,6 +52,11 @@
         {% if submitted_link  %}
         <iframe src="{{submitted_link}}" width="400" height="300" style="margin-top: 20px;" allowfullscreen="allowfullscreen"></iframe>
         {% endif %}
+        {% if submitted_doc_link %}
+          <h4>Submitted File:</h4>
+          <a href="{{submitted_doc_link}}" target="_blank" style="color: #2f2586; font-size: large;">Click here</a> to view file.<br><br>
+          <!-- <iframe src="{{doc_link}}" width="600" height="600" allowfullscreen="allowfullscreen"></iframe> -->
+        {% endif %}  
         <!-- <h4>Submitted Files:</h4>
         {% for file in files %}
         <h5><a href="{{ file.sub.url }}">{{ file.sub.url }}</a></h5>
