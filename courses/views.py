@@ -165,15 +165,14 @@ def cur_class(request, class_id):
             if request.POST['nname'] == 'notice':
                 data = request.POST
                 notice_name = data['aname']
-                notice_file = request.FILES.getlist('file')
+                notice_file = request.POST['document_link']
                 current = CreatedClasses.objects.get(pk=class_id)
                 notice_instance = notices(
                     notice_name=notice_name, class_id=current)
                 notice_instance.save()
-                for f in notice_file:
-                    notice_file_instance = noticeFile(
-                        files=f, notice_id=notice_instance)
-                    notice_file_instance.save()
+                notice_file_instance = noticeFile(
+                        document_link=notice_file, notice_id=notice_instance)
+                notice_file_instance.save()
 
         current = CreatedClasses.objects.get(pk=class_id)
         print("In cur class")
@@ -1241,9 +1240,13 @@ def peers_assigned(request, assignment_id):
 
 def cur_notice(request, notice_id):
     notice = notices.objects.get(pk=notice_id)
-    files = noticeFile.objects.filter(notice_id=notice)
+
+    file  = noticeFile.objects.filter(notice_id=notice)
+    document_link=""
+    for link in file:
+        document_link=link.document_link
     context = {
-        'files': files,
+        'document_link': document_link,
         'notice': notice,
     }
 
