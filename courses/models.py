@@ -86,7 +86,7 @@ class SubmittedFiles(models.Model):
 
 class SubmittedLink(models.Model):
     youtube_link = models.URLField(max_length=200, default=None)
-    doc_link = models.URLField(max_length=200, default=None)
+    doc_link = models.URLField(max_length=200, default='', null=True)
     submission_id = models.ForeignKey(Submission, on_delete=models.CASCADE)
 
 
