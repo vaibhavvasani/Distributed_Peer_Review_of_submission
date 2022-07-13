@@ -191,7 +191,11 @@ def cur_class(request, class_id):
                 notice.append(n)
         total_students = len(
             JoinedClasses.objects.filter(class_id=current)) - 1
-        student_ratio=Assignments.objects.filter(class_id=current).first().student_ratio
+        # print(Assignments.objects.filter(
+        #     class_id=current))
+        # student_ratio = Assignments.objects.filter(
+        #     class_id=current).first().student_ratio
+
         students = JoinedClasses.objects.filter(
             class_id=current).values('student')
         students_list = [User.objects.get(id=c['student'])
@@ -776,6 +780,7 @@ def view_feedback(request, assignment_id):
 
 @login_required
 def cur_assignment_gradesheet(request, assignment_id):
+
     current_assignment = Assignments.objects.get(pk=assignment_id)
     created_class = CreatedClasses.objects.filter(
         pk=current_assignment.class_id.pk).first()
@@ -786,8 +791,6 @@ def cur_assignment_gradesheet(request, assignment_id):
         if c.teacher.username == request.user.username:
             flag = 1
             break
-
-    print(flag)
 
     if(flag == 1):
         current = None
@@ -803,13 +806,13 @@ def cur_assignment_gradesheet(request, assignment_id):
             try:
                 current_sub = Submission.objects.get(
                     assignment_id=current_assignment, student=student)
-                print("Before Current Sub")
-                print(current_sub)
+                # print("Before Current Sub")
+                # print(current_sub)
             except Submission.DoesNotExist:
                 current_sub = None
 
             if(not current_sub):
-                print(current_sub)
+                # print(current_sub)
                 context = {
                     "username": student.username,
                     "email": student.email,
@@ -822,9 +825,6 @@ def cur_assignment_gradesheet(request, assignment_id):
 
                 all_classes = CreatedClasses.objects.filter(
                     class_code=samp_class.class_code)
-
-                print(samp_class)
-                print(all_classes)
 
                 flag = 0
                 for c in all_classes:
@@ -842,10 +842,13 @@ def cur_assignment_gradesheet(request, assignment_id):
                 no_peers = current_assignment.no_of_peers
                 sub = Submission.objects.filter(student=cur_student).filter(
                     assignment_id=current_assignment).first()
+                # print("Above Sub")
+                # print(Submission.objects.filter(student=cur_student).filter(
+                #     assignment_id=current_assignment)[0])
 
                 s_ratio = current_assignment.student_ratio
                 t_ratio = current_assignment.teacher_ratio
-                
+
                 if current_assignment.grading_type is False:
                     peer_marks = []
                     marks = 0
@@ -865,41 +868,50 @@ def cur_assignment_gradesheet(request, assignment_id):
                             if sub.marks is not None:
                                 teacher_marks = sub.marks
 
+                        avg_marks = None
                         if len(peer_marks) != 0:
                             count = 0
                             for i in peer_marks:
                                 if i is not None:
                                     count += 1
-                            if count != 0 and count == no_peers:
+                            # if count != 0 and count == no_peers:
+                            if count != 0:
 
                                 for i in peer_marks:
                                     if(i is not None):
                                         marks = marks+i
-                                    print(marks)
+                                    # print(marks)
                                 marks = float(marks)/count
+                                avg_marks = marks
                                 marks = marks*(s_ratio/100)
                                 if teacher_marks is not None:
-                                    total_marks = (teacher_marks*(t_ratio/100))+marks
-                        print(marks)
+                                    total_marks = (
+                                        teacher_marks*(t_ratio/100))+marks
 
                         if teacher_marks is not None:
                             teacher_marks = round(teacher_marks, 1)
                         if total_marks is not None:
                             total_marks = round(total_marks, 1)
-                        print(total_marks)
 
-                        isNone = False
-                        print(peer_marks)
-                        for marks in peer_marks:
-                            if marks is None:
-                                isNone = True
-                                break
-
-                        if isNone:
-                            avg_peer_marks = None
+                        # print("Count "+str(count))
+                        # print("Teacher Marks "+str(teacher_marks))
+                        # print("Total Marks "+str(total_marks))
+                        # print("Average Marks "+str(avg_marks))
+                        if(avg_marks != None):
+                            avg_peer_marks = round(avg_marks, 1)
                         else:
-                            avg_peer_marks = round(average(peer_marks), 1)
-                        print(avg_peer_marks)
+                            avg_peer_marks = None
+                        # isNone = False
+
+                        # for marks in peer_marks:
+                        #     if marks is None:
+                        #         isNone = True
+                        #         break
+
+                        # if isNone:
+                        #     avg_peer_marks = None
+                        # else:
+                        #     avg_peer_marks = round(average(peer_marks), 1)
 
                         context = {
                             'username': student.username,
@@ -909,14 +921,15 @@ def cur_assignment_gradesheet(request, assignment_id):
                             'marks': round(marks, 1) if marks is not None else None,
                             # 'teacher_marks': teacher_marks,
                             'teacher_marks': teacher_marks,
-                            # 'total_marks': total_marks,
+                            'total_marks': total_marks,
                             'peer_marks': peer_marks,
                             'avg_peer_marks': avg_peer_marks,
                             "iterator": range(1, no_peers+1),
                         }
 
                         entry.append(context)
-                        print(context)
+
+                        # print(context)
 
                         # print(teacher_marks)
                     else:
@@ -937,9 +950,8 @@ def cur_assignment_gradesheet(request, assignment_id):
                             # 'no_peers': no_peers,
                         }
 
-                        print(context)
+                        # print(context)
                         entry.append(context)
-                        # print(teacher_marks)
 
                 else:
                     marks = "No peergrading"
@@ -951,7 +963,7 @@ def cur_assignment_gradesheet(request, assignment_id):
                         # 'count': count,
                         # 'no_peers': no_peers,
                     }
-                    print(context)
+                    # print(context)
                     entry.append(context)
 
         finalContext = {
@@ -976,11 +988,24 @@ def cur_assignment_create(request, assignment_id):
         class_code=created_class.class_code)
     teacher_ratio = current_assignment.teacher_ratio
     flag = 0
+    if(request.POST):
+        print("Here")
+        print(request.POST['marks'])
+        current_sub = Submission.objects.get(pk=request.POST['cur_sub'])
+        student_name = current_sub.student.username
+        print(student_name)
+        cur_student = User.objects.get(username=student_name)
+        print(cur_student)
+        obj = Submission.objects.filter(student=cur_student).filter(
+            assignment_id=current_assignment).first()
+        obj.marks = request.POST['marks']
+        obj.save()
+
     for c in all_class:
         if c.teacher.username == request.user.username:
             flag = 1
             break
-    print(flag)
+
     if flag == 1:
         submission_list = Submission.objects.filter(
             assignment_id=current_assignment)
@@ -1040,6 +1065,7 @@ def cur_student_submission(request, submission_id):
     comments = Comments.objects.filter(submission=current_sub)
     if request.POST:
         comment = request.POST['comment']
+
         cur_user = request.user
         temp = Comments(submission=current_sub,
                         text=comment, comment_user=cur_user)
@@ -1066,22 +1092,23 @@ def cur_student_submission(request, submission_id):
             if sub is not None:
                 if sub.marks is not None:
                     teacher_marks = sub.marks
-
+            avg_marks = None
             if len(peer_marks) != 0:
                 count = 0
                 for i in peer_marks:
                     if i is not None:
                         count += 1
-                if count != 0 and count == no_peers:
+                if count != 0:
 
                     for i in peer_marks:
                         if(i is not None):
                             marks = marks+i
                         print(marks)
                     marks = float(marks)/count
+                    avg_marks = marks
                     marks = marks*(s_ratio/100)
                     if teacher_marks is not None:
-                        total_marks = teacher_marks+marks
+                        total_marks = teacher_marks*(t_ratio/100)+marks
                 ts_marks = round(t_points*(s_ratio/100), 1)
                 tt_marks = round(t_points*(t_ratio/100), 1)
             if teacher_marks is not None:
@@ -1089,17 +1116,21 @@ def cur_student_submission(request, submission_id):
             if total_marks is not None:
                 total_marks = round(total_marks, 1)
 
-            isNone = False
-            print(peer_marks)
-            for marks in peer_marks:
-                if marks is None:
-                    isNone = True
-                    break
+            # isNone = False
+            # print(peer_marks)
+            # for marks in peer_marks:
+            #     if marks is None:
+            #         isNone = True
+            #         break
 
-            if isNone:
-                avg_peer_marks = None
+            # if isNone:
+            #     avg_peer_marks = None
+            # else:
+            #     avg_peer_marks = round(average(peer_marks), 1)
+            if(avg_marks != None):
+                avg_peer_marks = round(avg_marks, 1)
             else:
-                avg_peer_marks = round(average(peer_marks), 1)
+                avg_peer_marks = None
 
             context = {
                 'current_sub': current_sub,
