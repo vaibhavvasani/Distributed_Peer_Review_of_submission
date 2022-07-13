@@ -165,15 +165,14 @@ def cur_class(request, class_id):
             if request.POST['nname'] == 'notice':
                 data = request.POST
                 notice_name = data['aname']
-                notice_file = request.FILES.getlist('file')
+                notice_file = request.POST['document_link']
                 current = CreatedClasses.objects.get(pk=class_id)
                 notice_instance = notices(
                     notice_name=notice_name, class_id=current)
                 notice_instance.save()
-                for f in notice_file:
-                    notice_file_instance = noticeFile(
-                        files=f, notice_id=notice_instance)
-                    notice_file_instance.save()
+                notice_file_instance = noticeFile(
+                    document_link=notice_file, notice_id=notice_instance)
+                notice_file_instance.save()
 
         current = CreatedClasses.objects.get(pk=class_id)
         print("In cur class")
@@ -191,11 +190,8 @@ def cur_class(request, class_id):
                 notice.append(n)
         total_students = len(
             JoinedClasses.objects.filter(class_id=current)) - 1
-        # print(Assignments.objects.filter(
-        #     class_id=current))
-        # student_ratio = Assignments.objects.filter(
-        #     class_id=current).first().student_ratio
-
+        # if Assignments.objects.filter(class_id=current).first().student_ratio is not None:
+        #     student_ratio=Assignments.objects.filter(class_id=current).first().student_ratio
         students = JoinedClasses.objects.filter(
             class_id=current).values('student')
         students_list = [User.objects.get(id=c['student'])
@@ -326,6 +322,7 @@ def join_cur_class(request, class_id):
 def cur_assignment_join(request, assignment_id):
     context = {}
     embed_url = ""
+    embd_url = ""
     edit = False
 
     if request.POST:
@@ -345,8 +342,9 @@ def cur_assignment_join(request, assignment_id):
             del_file = request.POST['del_sub']
             dobj = SubmittedFiles.objects.get(sub=del_file)
             dobj.delete()
-        elif request.POST['del_sub'] == '-1' and request.POST.get('youtube_link', False):
+        elif request.POST['del_sub'] == '-1' and (request.POST.get('youtube_link', False) or request.POST.get('doc_link', False)):
             values = request.POST['youtube_link']
+            embd_url = request.POST['doc_link']
             if(len(values.split("/")) > 1):
                 if values.find("watch") != -1:
                     embed_url = "https://youtube.com/embed/" + \
@@ -370,9 +368,9 @@ def cur_assignment_join(request, assignment_id):
                 for file in files:
                     temp = SubmittedFiles(sub=file, submission_id=obj1)
                     temp.save()
-                if embed_url != "":
+                if embed_url != "" or embd_url != "":
                     link = SubmittedLink(
-                        youtube_link=embed_url, submission_id=obj1)
+                        youtube_link=embed_url, doc_link=embd_url, submission_id=obj1)
                     link.save()
             else:
                 for file in files:
@@ -383,11 +381,11 @@ def cur_assignment_join(request, assignment_id):
                     obj.save()
                     temp = SubmittedFiles(sub=file, submission_id=obj)
                     temp.save()
-                if embed_url != "":
+                if embed_url != "" or embd_url != "":
                     link = SubmittedLink(
-                        youtube_link=embed_url, submission_id=obj)
+                        youtube_link=embed_url, doc_link=embd_url, submission_id=obj)
                     link.save()
-        elif request.POST['del_sub'] == '-1' and not request.POST.get('youtube_link', False):
+        elif request.POST['del_sub'] == '-1' and not (request.POST.get('youtube_link', False) or request.POST.get('doc_link', False)):
             current_user = request.user
             cur_assignment = Assignments.objects.get(pk=assignment_id)
             data = request.POST
@@ -442,13 +440,18 @@ def cur_assignment_join(request, assignment_id):
             if SubmittedLink.objects.filter(submission_id=sub) != None:
                 embed_url = SubmittedLink.objects.filter(submission_id=sub)
                 temp = ""
+                tmp = ""
+                # print(embed_url.doc_link)
                 for link in embed_url:
                     temp = link.youtube_link
+                    print(link.doc_link)
+                    tmp = link.doc_link
                 embed_url = temp
+                embd_url = tmp
             s_ratio = current_assignment.student_ratio
             t_ratio = current_assignment.teacher_ratio
             t_points = current_assignment.points
-            if(len(embed_url) != 0):
+            if(len(embed_url) != 0) or (len(embd_url) != 0):
                 edit = True
 
             if current_assignment.grading_type is False:
@@ -499,6 +502,7 @@ def cur_assignment_join(request, assignment_id):
                         'sub': sub,
                         'files': sub_files,
                         'youtube_link': embed_url,
+                        'doc_link': embd_url,
                         # 'marks': round(marks, 1)
                         'marks': round(marks, 1),
                         'ts_marks': ts_marks,
@@ -525,6 +529,7 @@ def cur_assignment_join(request, assignment_id):
                         'sub': sub,
                         'files': sub_files,
                         'youtube_link': embed_url,
+                        'doc_link': embd_url,
                         'marks': marks,
                         'teacher_marks': teacher_marks,
                         'tt_marks': current_assignment.points,
@@ -538,6 +543,7 @@ def cur_assignment_join(request, assignment_id):
                     'sub': sub,
                     'files': sub_files,
                     'youtube_link': embed_url,
+                    'doc_link': embd_url,
                     'marks': marks,
                     'comments': comments,
                     'edit': edit,
@@ -1046,12 +1052,17 @@ def cur_student_submission(request, submission_id):
     submitted_files = SubmittedFiles.objects.filter(
         submission_id=submission_id)
     submitted_link = ""
+    submitted_doc_link = ""
     if SubmittedLink.objects.filter(submission_id=submission_id) != None:
         embed_url = SubmittedLink.objects.filter(submission_id=submission_id)
         temp = ""
+        tmp = ""
         for link in embed_url:
             temp = link.youtube_link
+            tmp = link.doc_link
         submitted_link = temp
+        submitted_doc_link = tmp
+
     student_name = current_sub.student.username
     cur_student = User.objects.get(username=student_name)
     cur_assignment = current_sub.assignment_id.pk
@@ -1136,6 +1147,7 @@ def cur_student_submission(request, submission_id):
                 'current_sub': current_sub,
                 'files': submitted_files,
                 'submitted_link': submitted_link,
+                'submitted_doc_link': submitted_doc_link,
                 'marks': round(marks, 1) if marks is not None else None,
                 'ts_marks': ts_marks,
                 'tt_marks': tt_marks,
@@ -1159,6 +1171,7 @@ def cur_student_submission(request, submission_id):
                 'current_sub': current_sub,
                 'files': submitted_files,
                 'submitted_link': submitted_link,
+                'submitted_doc_link': submitted_doc_link,
                 'marks': marks,
                 'teacher_marks': teacher_marks,
                 'tt_marks': current_assignment.points,
@@ -1174,6 +1187,7 @@ def cur_student_submission(request, submission_id):
             'current_sub': current_sub,
             'files': submitted_files,
             'submitted_link': submitted_link,
+            'submitted_doc_link': submitted_doc_link,
             'marks': marks,
             'comments': comments,
             't_points': t_points,
@@ -1195,14 +1209,18 @@ def cur_peer_submission(request, submission_id):
     if SubmittedLink.objects.filter(submission_id=current_sub) != None:
         embed_url = SubmittedLink.objects.filter(submission_id=current_sub)
         temp = ""
+        tmp = ""
         for link in embed_url:
             temp = link.youtube_link
+            tmp = link.doc_link
         embed_url = temp
+        embd_url = tmp
 
     context = {
         'current_sub': current_sub,
         'files': submitted_files,
-        'submitted_link': embed_url
+        'submitted_link': embed_url,
+        'submitted_doc_link': embd_url
     }
     return render(request, 'courses/cur_peer_submission.html', context)
 
@@ -1248,9 +1266,13 @@ def peers_assigned(request, assignment_id):
 
 def cur_notice(request, notice_id):
     notice = notices.objects.get(pk=notice_id)
-    files = noticeFile.objects.filter(notice_id=notice)
+
+    file = noticeFile.objects.filter(notice_id=notice)
+    document_link = ""
+    for link in file:
+        document_link = link.document_link
     context = {
-        'files': files,
+        'document_link': document_link,
         'notice': notice,
     }
 

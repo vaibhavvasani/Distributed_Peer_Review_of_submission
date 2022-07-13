@@ -59,7 +59,7 @@ class notices(models.Model):
 
 
 class noticeFile(models.Model):
-    files = models.FileField(upload_to='subs/files/')
+    document_link = models.URLField(max_length=200, default=None)
     notice_id = models.ForeignKey(notices, on_delete=models.CASCADE)
 
 
@@ -86,6 +86,7 @@ class SubmittedFiles(models.Model):
 
 class SubmittedLink(models.Model):
     youtube_link = models.URLField(max_length=200, default=None)
+    doc_link = models.URLField(max_length=200, default='', null=True)
     submission_id = models.ForeignKey(Submission, on_delete=models.CASCADE)
 
 

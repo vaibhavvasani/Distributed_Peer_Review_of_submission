@@ -1,4 +1,3 @@
-<!--Edited file by Hussein/Nayan-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -173,7 +172,6 @@
     .size:hover {
       transform: scale(1.1);
     }
-
     /* button:hover a{
       color: white
     } */
@@ -327,13 +325,13 @@
                 class="btn btn-warning text-white font-weight-bold">+Teacher</button>
               <button style="border-radius: 12.5px;  width: 100%; height: auto;" onclick="showform(3)"
                 class="btn btn-warning text-white font-weight-bold ">+Notice</button>
-              <form method="post" action="{% url 'homepage' %}"
+              <!-- <form method="post" action="{% url 'homepage' %}"
                 onsubmit="confirm('Do you really want to delete the class?');">
                 {% csrf_token %}
                 <input type="hidden" name="del_class" value="{{cur_class.pk}}">
                 <button style="border-radius: 12.5px;  width: 100%; height: auto;" type="submit"
                   class="btn btn-danger text-white font-weight-bold">Delete</button>
-              </form>
+              </form> -->
             </div>
           </div>
           <!--<div class="btn-wrapper">
@@ -421,7 +419,7 @@
                   <div style="text-align: center;" class="cat-icon mb-3"><a href="{% url 'cur_notice' n.pk %}">
                       <span class="flaticon-web-design"></span></a>
                   </div>
-                  <div style="text-align: center;" class="cat-cap">
+                  <div style="text-align: center;word-wrap: break-word;" class="cat-cap">
                     <h5 style="text-transform: uppercase; text-decoration: underline;"><a
                         href="{% url 'cur_notice' n.pk %}">{{n.notice_name}}</a></h5>
                     <p style="margin-bottom: 15px;">Posted On: {{n.created_on}}</p>
@@ -470,7 +468,6 @@
       </div>
     </form>
   </div>
-
   <div id="create2" class="login-box" style="visibility: hidden; z-index: 100;">
     <h2>Teacher Graded Assignment</h2>
     <form method="post" action="{% url 'cur_class' class_id %}">
@@ -507,7 +504,9 @@
         <label>Notice Descriptions</label>
       </div>
       <div class="user-box">
-        <input type="file" name="file" autocomplete="off" multiple required>
+        <input size="25" name="document_link" autocomplete="off" required
+        type="url" pattern="https://docs.google.com.*"/>
+        <label>Enter Google doc link here</label>
       </div>
 
       <div>
@@ -529,6 +528,9 @@
           document.getElementById('createnotice').style.visibility = 'hidden';
         } else {
           document.getElementById('create1').style.visibility = 'visible';
+          document.getElementById("myNav").style.overflow = "hidden";
+          document.body.overflow = "hidden";
+          
           document.getElementById('create2').style.visibility = 'hidden';
           document.getElementById('createnotice').style.visibility = 'hidden';
         }
@@ -620,10 +622,8 @@
                 <!-- Footer Social -->
                 <div class="footer-social">
                   <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-google"></i></a>
                   <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-youtube"></i></a>
+                  <a href="#"><i class="fab fa-github"></i></a>
                 </div>
               </div>
             </div>
@@ -641,14 +641,14 @@
           <div class="media contact-info" style="float: left;margin-right:190px; ">
             <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
             <div class="media-body">
-              <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
+              <h3 style="color: white;">9128<br />Mon to Fri 9:30am to 5pm</h3>
 
             </div>
           </div>
           <div class="media contact-info" style="float: left;">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
+              <h3 style="color: white;">vaibhav.vasani@gmail.com<br />Send us your query anytime!</h3>
 
             </div>
           </div>
