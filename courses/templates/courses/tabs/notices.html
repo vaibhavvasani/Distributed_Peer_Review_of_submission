@@ -1,0 +1,31 @@
+{% load static %}
+
+
+<div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: flex-start;">
+    <i class=" fa fa-bullhorn" style="font-size: 20px;"></i>
+    <h4 style="margin-top: 30px; padding: 10px; color: grey;">Notices</h4>
+</div>
+
+<hr style="display: block; height: 1px;
+  border: 0; border-top: 2px solid #3218a8;
+  margin: 1em 0; padding: 0;">
+
+
+{% for n in notices %}
+<div class="single-cat float-left" style="width: 30%; margin: 0px 0px 20px 30px; padding: 10px; height: 350px">
+    <div style="text-align: center;" class="cat-icon mb-3"><a href="{% url 'cur_notice' n.pk %}">
+            <span class="flaticon-web-design"></span></a>
+    </div>
+    <div style="text-align: center;" class="cat-cap">
+        <h5 style="text-transform: uppercase; text-decoration: underline;"><a
+                href="{% url 'cur_notice' n.pk %}">{{n.notice_name}}</a></h5>
+        <p style="margin-bottom: 15px;">Posted On: {{n.created_on}}</p>
+    </div>
+</div>
+
+
+{% empty %}
+<div class="not-found">
+    <h5>No Notices Found</h5>
+</div>
+{% endfor %}

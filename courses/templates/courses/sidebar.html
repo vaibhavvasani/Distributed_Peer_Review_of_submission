@@ -1,0 +1,144 @@
+{% load static %}
+
+<nav id="sidebar">
+    <link rel="stylesheet" href="{% static 'assets/css/sidebar-global.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <div class="sidebar-header">
+        <!-- <div class="sidebarCollapse " style="
+        display: flex;
+align-items: baseline;
+justify-content: flex-end;">
+            <i class="primary fa fa-angles-left" style="color: white; margin-right: 10px; font-size: 16px">
+            </i>
+
+            <h6 style="color: white">Go Back</h6>
+        </div> -->
+
+
+
+        <div style="
+        display: flex;
+align-items: baseline;
+justify-content: flex-start;">
+            <i class=" fa fa-home" style="color: white; margin-right: 20px; font-size: 20px"></i>
+            <h3 style="color: white">Classes</h3>
+        </div>
+
+
+    </div>
+
+    <div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: flex-start;">
+        <i class=" fa fa-plus" style="color: black;"></i>
+        <h5 style="padding: 10px; color: black;">Created</h5>
+    </div>
+
+    <ul class="list-unstyled components">
+
+        {% for c in created %}
+        <li>
+            <a href="{% url 'cur_class' c.pk %}">
+                <div class="sidebar-tile">
+                    <div class="avatar">
+                        <div class="avatar__letters">
+                            <!-- The letters -->
+                            {{ c.class_name.0 }}
+                        </div>
+                    </div>
+                    <h5>{{c.class_name}}</h5>
+                </div>
+            </a>
+        </li>
+        {% empty %}
+        <div class="not-found">
+            <h5>No Classes Found</h5>
+        </div>
+        {% endfor %}
+    </ul>
+
+    <div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: flex-start;">
+        <i class=" fa-solid fa-user-plus" style="color: black;"></i>
+        <h5 style="padding: 10px; color:black;">Joined</h5>
+    </div>
+
+    <ul class="list-unstyled components">
+
+        {% for c in joined %}
+        <li>
+            <a href="{%  url 'join_cur_class' c.class_id.pk  %}">
+                <div class="sidebar-tile">
+                    <div class="avatar">
+                        <div class="avatar__letters">
+                            <!-- The letters -->
+                            {{ c.class_id.class_name.0 }}
+                        </div>
+                    </div>
+                    <h5>{{c.class_id.class_name}}</h5>
+                </div>
+            </a>
+        </li>
+        {% empty %}
+        <div class="not-found">
+            <h5>No Classes Found</h5>
+        </div>
+        {% endfor %}
+    </ul>
+
+
+    <script src="{% static './assets1/jquery/jquery.min.js' %}"></script>
+    <script src="{% static './assets1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static './assets/js/popper.min.js' %}"></script>
+    <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static './assets/js/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static './assets/js/wow.min.js' %}"></script>
+    <script src="{% static './assets/js/animated.headline.js' %}"></script>
+    <script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+
+    <!-- Date Picker -->
+    <script src="{% static './assets/js/gijgo.min.js' %}"></script>
+    <!-- Nice-select, sticky -->
+    <script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+
+    <!-- counter , waypoint -->
+    <script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static './assets/js/waypoints.min.js' %}"></script>
+
+    <!-- contact js -->
+    <script src="{% static './assets/js/contact.js' %}"></script>
+    <script src="{% static './assets/js/jquery.form.js' %}"></script>
+    <script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static './assets/js/mail-script.js' %}"></script>
+    <script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="{% static './assets/js/plugins.js' %}"></script>
+    <script src="{% static './assets/js/main.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidebarCollapse').on('click', function () {
+                console.log("Hello");
+                $('#sidebar').toggleClass('active');
+
+            });
+            const elements = document.getElementsByClassName('avatar');
+            for (let i = 0; i < elements.length; i++) {
+                const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                elements[i].style.backgroundColor = "#" + randomColor;
+            }
+        });
+    </script>
+
+</nav>

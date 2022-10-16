@@ -1,0 +1,47 @@
+{% load static %}
+
+
+<div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: flex-start;">
+    <i class=" fa fa-clipboard" style="font-size: 20px;"></i>
+    <h4 style="margin-top: 30px; padding: 10px; color: grey;">Assignments</h4>
+</div>
+
+<hr style="display: block; height: 1px;
+  border: 0; border-top: 2px solid #3218a8;
+  margin: 1em 0; padding: 0;">
+<ul class="list-unstyled components">
+
+    {% for c in assignments %}
+    <li>
+        <a href="{% url 'cur_assignment_create' c.pk %}">
+            <div style="display: flex; align-items: center;justify-content: space-between; padding: 5px;">
+                <div style="display: flex; align-items: center;justify-content: center;">
+                    <div style="  display: inline-block;
+                    vertical-align: middle; 
+                    position: relative;
+                    background-color:#3218a8;
+                    color: #fff;
+                    border-radius: 50%;
+                    height: 48px;
+                    width: 48px;
+                    margin-right: 20px;">
+                        <div class="avatar__letters">
+                            <!-- The letters -->
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                    </div>
+                    <h5>{{c.assignment_name}}</h5>
+
+                </div>
+                <h5 style="padding-left: 60px;"> {{c.points}} points</h5>
+
+                <h6 style="padding-left: 100px; color: gray;">Due {{c.due_date}}</h6>
+            </div>
+        </a>
+    </li>
+    {% empty %}
+    <div class="not-found">
+        <h5>No Assignments Created</h5>
+    </div>
+    {% endfor %}
+</ul>

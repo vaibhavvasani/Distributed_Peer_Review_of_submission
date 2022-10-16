@@ -1,0 +1,75 @@
+{% load static %}
+
+<div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: flex-start;">
+    <i class=" fa fa-user-plus" style="font-size: 20px;"></i>
+    <h4 style="margin-top: 30px; padding: 10px; color: grey;">Teachers</h4>
+</div>
+
+<hr style="display: block; height: 1px;
+  border: 0; border-top: 2px solid #3218a8;
+  margin: 1em 0; padding: 0;">
+
+
+<ul class="list-unstyled components">
+
+    {% for c in teachers %}
+    <li>
+        <a>
+            <div style="display: flex; align-items: center;justify-content: space-between; padding: 5px;">
+                <div style="display: flex; align-items: center;justify-content: center;">
+                    <div class="avatar">
+                        <div class="avatar__letters">
+                            <!-- The letters -->
+                            {{ c.username.0 }}
+                        </div>
+                    </div>
+                    <h5>{{c.username}}</h5>
+                </div>
+                <h5 style="padding-left: 100px;">{{c.email}}</h5>
+            </div>
+        </a>
+    </li>
+    {% empty %}
+    <div class="not-found">
+        <h5>No Teachers Found</h5>
+    </div>
+    {% endfor %}
+</ul>
+
+<div style="padding: 0 10px; display: flex; align-items: baseline; justify-content: space-between;">
+    <div style="display: flex; align-items: baseline; justify-content: flex-start;">
+        <i class=" fa fa-user-plus" style="font-size: 20px;"></i>
+        <h4 style="margin-top: 30px; padding: 10px; color: grey;">Students</h4>
+    </div>
+
+    <h5 style="color:#3218a8">{{ students|length }} students</h5>
+</div>
+
+<hr style="display: block; height: 1px;
+  border: 0; border-top: 2px solid #3218a8;
+  margin: 1em 0; padding: 0;">
+<ul class="list-unstyled components">
+
+    {% for c in students %}
+    <li>
+        <a>
+            <div style="display: flex; align-items: center;justify-content: space-between; padding: 5px;">
+                <div style="display: flex; align-items: center;justify-content: center;">
+                    <div class="avatar">
+                        <div class="avatar__letters">
+                            <!-- The letters -->
+                            {{ c.username.0 }}
+                        </div>
+                    </div>
+                    <h5>{{c.username}}</h5>
+                </div>
+                <h5 style="padding-left: 100px;">{{c.email}}</h5>
+            </div>
+        </a>
+    </li>
+    {% empty %}
+    <div class="not-found">
+        <h5>No Students Found</h5>
+    </div>
+    {% endfor %}
+</ul>

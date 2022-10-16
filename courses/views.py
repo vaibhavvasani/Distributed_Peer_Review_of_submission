@@ -77,8 +77,11 @@ def home(request):
                 pass
     all_classes = CreatedClasses.objects.filter(teacher=current_user)
 
+    joined_classes = JoinedClasses.objects.filter(student=current_user)
+
     context = {
         'classes': all_classes,
+        'joined': joined_classes,
     }
     return render(request, 'courses/home.html', context)
 
@@ -198,8 +201,14 @@ def cur_class(request, class_id):
                          for i, c in enumerate(students)]
         print(students_list)
 
+        teachers = [cl.teacher for cl in all_classes]
+
+        teachers_list = [User.objects.get(username=c)
+                         for i, c in enumerate(teachers)]
+
         context = {
             'students': students_list,
+            'teachers': teachers_list,
             'total_students': total_students,
             'cur_class': current,
             'assignments': assignments,
