@@ -1,58 +1,131 @@
 {% extends 'courses/nav.html' %}
 {% load static %}
 
-    {% block content %}
-    <main style="overflow-x: hidden;">
-      <!--? Hero Start -->
-      <div class="slider-area">
-        <div class="slider-height2 d-flex align-items-center">
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-12">
-                <div class="hero-cap hero-cap2 text-center">
-                  <h2>About Us</h2>
-                </div>
-              </div>
+{% block content %}
+<main style="overflow-x: hidden;">
+  <link rel="stylesheet" href="{% static 'assets/css/about.css' %}" />
+  <!--? Hero Start -->
+  <!-- <div class="slider-area">
+    <div class="slider-height d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap hero-cap2 text-center">
+              <h2>About Us</h2>
             </div>
           </div>
         </div>
       </div>
-      <div class="about-details section-padding30">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="about-details-cap mb-50">
-                <h4>What is Peergrading?</h4>
-                <p>
-                  Peer Grading, commonly referred to as peer assessment or peer evaluation,
-                  is the grading process that allow students to judge the work of other students.
-                </p>
-                <p>
-                  PeerGradeReview allows students to check and assess the work of their peers.
-                </p>
-              </div>
+    </div>
+  </div> -->
+  <div class="about-details section-padding2">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="about-details-cap mb-50">
+            <h4>What is Peergrading?</h4>
+            <p>
+              Peer Grading, commonly referred to as peer assessment or peer evaluation,
+              is the grading process that allow students to judge the work of other students.
+            </p>
+            <p>
+              PeerGradeReview allows students to check and assess the work of their peers.
+            </p>
+          </div>
 
-              <div class="about-details-cap mb-50">
-                <h4>Why Peergrading?</h4>
-                <p>
-                  <b>Motivation</b><br>
-                  Being judged by peers is one of the most powerful sources of motivation in a classroom.
-                </p>
-              </div>
+          <div class="about-details-cap mb-50">
+            <h4>Why Peergrading?</h4>
+            <p>
+              <b>Motivation</b><br>
+              Being judged by peers is one of the most powerful sources of motivation in a classroom.
+            </p>
+          </div>
+
+          <div class="about-details-cap mb-50">
+            <h4>Guide</h4>
+            <div class="container">
+              <main class="grid">
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1083" alt="Sample photo">
+                  <div class="text">
+                    <h3>Vaibhav Vasani</h3>
+                    <p style="color: grey">vaibhavvasani</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+              </main>
+            </div>
+          </div>
+
+          <div class="about-details-cap mb-50">
+            <h4>Contributors</h4>
+            <div class="container">
+              <main class="grid">
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1083" alt="Sample photo">
+                  <div class="text">
+                    <h3>Vatsal</h3>
+                    <p style="color: grey">vatsal1999</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1063" alt="Sample photo">
+                  <div class="text">
+                    <h3>Aditya Kaushik</h3>
+                    <p style="color: grey">adityak14</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1056" alt="Sample photo">
+                  <div class="text">
+                    <h3>Kaushik Mehta</h3>
+                    <p style="color: grey">kaushikm10</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1050" alt="Sample photo">
+                  <div class="text">
+                    <h3>Shrikant Sahu</h3>
+                    <p style="color: grey">shrikantsahu2004</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1041" alt="Sample photo">
+                  <div class="text">
+                    <h3>Kunal Maniyar</h3>
+                    <p style="color: grey">KunalManiyar</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+                <article>
+                  <img src="https://picsum.photos/600/400?image=1015" alt="Sample photo">
+                  <div class="text">
+                    <h3>Amey Gangan</h3>
+                    <p style="color: grey">amey-323</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">View Github</a>
+                  </div>
+                </article>
+              </main>
             </div>
           </div>
         </div>
       </div>
-      <!-- About Details End -->
-      <!--? Count Down Start -->
-            <!-- Count Down End -->
-      <!--? Testimonial Start -->
-      
-      <!-- About Law End-->
-    </main>
-    <footer>
-      <!--------------------------------COPY START  ---------------------------------->
-      <div class="footer-area footer-bg">
+    </div>
+  </div>
+  <!-- About Details End -->
+  <!--? Count Down Start -->
+  <!-- Count Down End -->
+  <!--? Testimonial Start -->
+
+  <!-- About Law End-->
+</main>
+<footer>
+  <!--------------------------------COPY START  ---------------------------------->
+  <div class="footer-area footer-bg">
     <div class="container">
       <div class="footer-top footer-padding">
         <!-- footer Heading -->
@@ -98,32 +171,32 @@
           </div>
         </div>
         <!-- Footer Menu -->
-   
-              <div class="media contact-info" style="float: left;margin-right: 120px;">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
-                <div class="media-body ">
-                  <h3 style="color: white;">K. J. Somaiya College of Engineering<br/><span style="margin-left: 45px;">Mumbai, 400077<span></h3>
-              
-                </div>
-              </div>
-              <div class="media contact-info" style="float: left;margin-right:190px; ">
-                <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i
-                ></span>
-                <div class="media-body">
-                  <h3 style="color: white;">+91-1234567890<br/>Mon to Fri 9am to 6pm</h3>
-                 
-                </div>
-              </div>
-              <div class="media contact-info">
-                <span class="contact-info__icon" ><i class="ti-email"></i></span>
-                <div class="media-body">
-                  <h3 style="color: white;">peergrade123@gmail.com<br/>Send us your query anytime!</h3>
-                  
-                </div>
-              </div>
+
+        <div class="media contact-info" style="float: left;margin-right: 120px;">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-home"></i></span>
+          <div class="media-body ">
+            <h3 style="color: white;">K. J. Somaiya College of Engineering<br /><span style="margin-left: 45px;">Mumbai,
+                400077<span></h3>
+
+          </div>
+        </div>
+        <div class="media contact-info" style="float: left;margin-right:190px; ">
+          <span class="contact-info__icon" style="float: left;"><i class="ti-tablet"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">+91-1234567890<br />Mon to Fri 9am to 6pm</h3>
+
+          </div>
+        </div>
+        <div class="media contact-info">
+          <span class="contact-info__icon"><i class="ti-email"></i></span>
+          <div class="media-body">
+            <h3 style="color: white;">peergrade123@gmail.com<br />Send us your query anytime!</h3>
+
+          </div>
+        </div>
 
 
-       
+
       </div>
       <!-- Footer Bottom -->
       <div class="footer-bottom">
@@ -139,47 +212,47 @@
   </div>
   <!-- Footer End-->
 </footer>
-    <!-- Scroll Up -->
-    <div id="back-top">
-      <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-    </div>
+<!-- Scroll Up -->
+<div id="back-top">
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
 
-    <!-- JS here -->
+<!-- JS here -->
 
-    <script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <script src="{% static './assets/js/popper.min.js' %}"></script>
-    <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+<script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static './assets/js/popper.min.js' %}"></script>
+<script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
 
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static './assets/js/slick.min.js' %}"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{% static './assets/js/wow.min.js' %}"></script>
-    <script src="{% static './assets/js/animated.headline.js' %}"></script>
-    <script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static './assets/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static './assets/js/wow.min.js' %}"></script>
+<script src="{% static './assets/js/animated.headline.js' %}"></script>
+<script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
 
-    <!-- Date Picker -->
-    <script src="{% static './assets/js/gijgo.min.js' %}"></script>
-    <!-- Nice-select, sticky -->
-    <script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+<!-- Date Picker -->
+<script src="{% static './assets/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.sticky.js' %}"></script>
 
-    <!-- counter , waypoint -->
-    <script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
-    <script src="{% static './assets/js/waypoints.min.js' %}"></script>
+<!-- counter , waypoint -->
+<script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static './assets/js/waypoints.min.js' %}"></script>
 
-    <!-- contact js -->
-    <script src="{% static './assets/js/contact.js' %}"></script>
-    <script src="{% static './assets/js/jquery.form.js' %}"></script>
-    <script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static './assets/js/mail-script.js' %}"></script>
-    <script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+<!-- contact js -->
+<script src="{% static './assets/js/contact.js' %}"></script>
+<script src="{% static './assets/js/jquery.form.js' %}"></script>
+<script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
+<script src="{% static './assets/js/mail-script.js' %}"></script>
+<script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
 
-    <!-- Jquery Plugins, main Jquery -->
-    <script src="{% static './assets/js/plugins.js' %}"></script>
-    <script src="{% static './assets/js/main.js' %}"></script>
-  {% endblock %}
+<!-- Jquery Plugins, main Jquery -->
+<script src="{% static './assets/js/plugins.js' %}"></script>
+<script src="{% static './assets/js/main.js' %}"></script>
+{% endblock %}
