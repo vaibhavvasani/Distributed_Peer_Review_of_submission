@@ -43,6 +43,7 @@ urlpatterns = [
 
     path('view_feedback/<assignment_id>',
          views.view_feedback, name='view_feedback'),
+    path('accounts/', include('allauth.urls')),
 
 
 ]

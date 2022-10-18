@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% load account socialaccount %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -163,6 +164,7 @@
             <h1>Welcome Back, Somaiyan!</h1>
             <p>Enter your personal details and start journey with us</p>
             <a href="{% url 'signup' %}"><button class="ghost1" id="signUp">Sign Up</button></a>
+            <a href="{% provider_login_url 'google' %}?next=/"><button class="ghost1" id="signUp">Login Using Google</button></a>
           </div>
         </div>
       </div>
