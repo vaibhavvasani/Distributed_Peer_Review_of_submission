@@ -56,3 +56,6 @@ wheels/
 *.egg 
 *.manifest 
 *.spec 
+*.pyc
+db.sqlite3
+staticfiles/
