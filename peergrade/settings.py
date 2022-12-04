@@ -21,18 +21,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 't3c=^mcb1ws_2c0_xt1^h^6ui(zwd888l9c8^p0y9(8w1s$v14'
+SECRET_KEY = 'postgres://distributed_peer_review_user:vCReSjAXMdc5agpgpqkew4SqVbtU00Ms@dpg-ce6am2cgqg49412i9dr0-a/distributed_peer_review'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["distributed-peer-review.herokuapp.com"]
+ALLOWED_HOSTS = ["distributed-peer-review.onrender.com"]
 # ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'render.apps.RenderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,10 +86,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "db4efcpvkb4geh",
-        'USER': "runuzxmuwbntun",
-        'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
-        'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
+        'NAME': "distributed-peer-review",
+        'USER': "distributed_peer_review_user",
+        'PASSWORD': "vCReSjAXMdc5agpgpqkew4SqVbtU00Ms",
+        'HOST': "dpg-ce6am2cgqg49412i9dr0-a",
         'PORT': "5432"
     }
 }
