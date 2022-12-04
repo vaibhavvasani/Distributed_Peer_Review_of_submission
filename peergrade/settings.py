@@ -14,7 +14,7 @@ import os
 import django_heroku
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'peergrade.urls'
@@ -87,16 +88,16 @@ WSGI_APPLICATION = 'peergrade.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "db4efcpvkb4geh",
-        'USER': "runuzxmuwbntun",
-        'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
-        'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
-        'PORT': "5432"
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "db4efcpvkb4geh",
+#         'USER': "runuzxmuwbntun",
+#         'PASSWORD': "7e9025b569849de32b257e84e5370d4425a802fa3141827dd70c00c27132c609",
+#         'HOST': "ec2-52-44-209-165.compute-1.amazonaws.com",
+#         'PORT': "5432"
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -161,7 +162,6 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, 'static')
 # ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
 django_heroku.settings(locals())
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -182,3 +182,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'peergrade123@gmail.com'
 EMAIL_HOST_PASSWORD = 'Eby12kd54@#'
+
+import dj_database_url
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
+
+STATIC_URL = "static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
