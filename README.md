@@ -18,7 +18,11 @@ The ***functionalities*** provided in the project are:
 * Displaying aggregated mark
 * Evaluation and Feedback by students
 
+# Installation Instructions
+
 To install the dependencies, use:
 ```bash
 pip install -r requirements.txt
 ```
+
+For further details and a complete guide towards setting up the project to run locally on your machine, refer to the ```Peergrade Internship Guide.pdf``` file. 
